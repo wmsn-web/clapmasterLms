@@ -1,0 +1,286 @@
+/* Responsive */
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    
+}
+/* Responsive */
+
+@media only screen and (max-width: 1199px) {
+    
+}
+
+/* Medium Devices, Tablet, Mobile */    
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+@media only screen and (max-width: 991px) {
+
+.middleLogo {
+    order: -1;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.maunMenu {
+    flex-wrap: wrap;
+}
+
+.middleLogo img {
+    margin: 0 auto;
+}
+
+.menuRight {
+    margin-left: auto;
+}
+
+.banar-area {
+    padding-bottom: 50px;
+}
+
+.inofTab .nav-pills .nav-link {
+    padding: 6px 15px;
+    font-size: 16px;
+}
+
+.inofContents h3 {
+    font-size: 35px;
+    margin: 0 0 20px 0;
+}
+
+.inofContents p {
+    font-size: 18px;
+}
+
+.infoContainer {
+    padding: 30px 0 60px;
+}
+
+.footerBottom {
+    justify-content: flex-start;
+}
+
+.footerBottom> div, .footerBottom> a, .footerBottom> ul {
+    margin-bottom: 15px;
+}
+
+.shapeimg.topSha {
+    width: 100px;
+}
+
+.shapeimg {
+    width: 150px;
+}
+
+h1.workTitle {
+	font-size: 50px;
+}
+
+section.topArea {
+    padding-top: 170px;
+}
+
+}/*@media only screen and (max-width: 991px)*/
+    
+@media only screen and (min-width: 426px) and (max-width: 767px) {
+   
+}
+      
+@media only screen and (max-width: 767px) {
+
+	.inofTab .nav-pills .nav-link {
+	    padding: 3px 6px;
+	    font-size: 14px;
+	    border-right: 2px solid #B6AAF9;
+	    line-height: 1;
+	}
+
+	.inofTab .nav-pills li.nav-item {
+	    flex-grow: unset;
+	}
+
+	.feedbackContainer {
+	    padding: 50px 50px 20px 50px;
+	}
+
+	.profileSlider.owl-carousel.owl-loaded button.owl-next {
+	    bottom: 0;
+	    right: 0;
+	    top: auto;
+	    transform: translate(-50%);
+	    left: 50%;
+	    height: 25px;
+	}
+
+
+.workContent {
+	margin-top: 0;
+}
+
+h1.workTitle {
+	font-size: 40px;
+	margin-bottom: 0;
+}
+
+.workContent h4 {
+	font-size: 24px;
+	margin-bottom: 15px;
+}
+
+.workContent p {
+	font-size: 16px;
+}
+
+
+.aboutcontent {
+	margin-bottom: 30px;
+}
+
+
+}/*@media only screen and (max-width: 767px) */
+
+
+@media only screen and (max-width: 575px) {
+   .smallLogo img {
+	    height: 30px;
+	}
+
+	span.catagoryIcon {
+	    font-size: 14px;
+	}
+
+	span.catagoryIcon img {
+	    height: 20px;
+	}
+
+	.cart img {
+	    height: 25px;
+	}
+
+	.menuRight a {
+	    padding: 7px 15px;
+	    font-size: 14px;
+	}
+
+	.middleLogo img {
+	    height: 25px;
+	}
+
+	.shapeimg.topSha {
+		display: none;
+	}
+
+	.inofTab .nav-pills li.nav-item {
+	    flex-basis: 33.3333%;
+	    margin-top: 10px;
+	}
+
+	.inofTab .nav {
+	    flex-wrap: wrap;
+	}
+
+	.inofTab .nav-pills li.nav-item:nth-child(3) .nav-link {
+	    border: 0;
+	}
+
+	.inofTab {
+	    padding-top: 0;
+	}
+
+	.inofTab .nav-pills .nav-link {
+	    text-align: center;
+	}
+
+	.feedbackContainer {
+	    padding: 20px 20px 10px 20px;
+	}
+}/*@media only screen and (max-width: 575px)*/
+    
+@media only screen and (min-width: 320px) and (max-width: 425px) {
+	
+}    
+
+@media only screen and (max-width: 479px) {
+	.menuRight {
+	    margin: 0;
+	    justify-content: center;
+	    width: 100%;
+	}
+
+	.menuLeft {
+	    width: 100%;
+	    justify-content: center;
+	    margin: 15px 0;
+	}
+
+	section.topArea {
+	    padding-top: 200px;
+	}
+
+	a.name {
+	    font-size: 24px;
+	    margin-bottom: 6px;
+	}
+
+	.feedImg {
+	    width: 100px;
+	}
+
+	.feedUser span {
+	    font-size: 16px;
+	    margin-top: 5px;
+	}
+
+	ul.rating li {
+	    font-size: 18px;
+	}
+
+	ul.rating:after {
+	    font-size: 16px;
+	}
+
+	.inofContents {
+	    padding: 0;
+	}
+
+	.inofContents p {
+	    font-size: 16px;
+	}
+
+	.inofContents h3 {
+	    font-size: 25px;
+	}
+
+	.aboutTitle {
+	    font-size: 25px;
+	}
+
+	.aboutTitle span {
+	    font-size: 16px;
+	}
+
+	img.shapeimg.dotted {
+	    display: none;
+	}
+
+	.readMore {
+	    padding: 9px;
+	}
+	
+.banarImg img {
+    width: 163%;
+    margin: 0 auto;
+}
+
+.banarImg {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+}/*@media only screen and (max-width: 479px) */
+      
+@media only screen and (max-width: 375px) {
+
+}
+   

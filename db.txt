@@ -1,0 +1,12 @@
+Database 
+DB Name: inypro_data
+DB User:  inpro_usr
+Password: ]Px7%Y?g44Fw
+
+///
+DBName: mastercl_data
+DBUSER: mastercl_us
+pawd:   q#l@?*89Pfc!
+
+Email: support@masterclap.in
+pass:  y)9qj#;V9Tqa

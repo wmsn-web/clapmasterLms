@@ -1,0 +1,352 @@
+.hero_area {
+  padding-top: 150px;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.themeColor
+{
+  background-color: #663399;
+}
+.hero_area:after {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 202px;
+  content: "";
+  background-image: url("assets/img/cloudShapeBottom.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.hero_area .courses_offered {
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.hero_area .courses_offered h4 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.hero_area h5 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 15px;
+  margin-top: -30px;
+}
+
+.hero_area .courses_offered a {
+  background: #eee;
+  display: block;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  color: rebeccapurple;
+}
+.hero_area .courses_offered > a:before {
+  position: absolute;
+  z-index: -1;
+  background: #2c273d;
+  content: "";
+  left: 10px;
+  bottom: 4px;
+  width: 10px;
+  height: 4px;
+  border-radius: 5px;
+}
+.hero_area .courses_offered a:first-of-type:before {
+  width: 10px;
+}
+.hero_area .courses_offered a:nth-of-type(2):before {
+  width: 20px;
+}
+.hero_area .courses_offered a:nth-of-type(3):before {
+  width: 27px;
+}
+.hero_area .courses_offered a:last-of-type:before {
+  width: 35px;
+}
+.hero_area .courses_offered a:after {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid #2c273d;
+  content: "";
+  left: 10px;
+  bottom: 4px;
+  width: 35px;
+  height: 4px;
+  border-radius: 5px;
+}
+
+.hero_area .courses_offered a i {
+  right: 5px;
+  position: absolute;
+}
+
+.hero_area .courses_offered .show_more {
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  display: block;
+}
+.hero_area .hero_middle {
+  margin-bottom: 30px;
+}
+.hero_area .hero_middle video {
+  border-radius: 5px;
+  width: 100%;
+  -webkit-box-shadow: 2px 2px 17px 3px #201e1e87;
+  box-shadow: 2px 2px 17px 3px #201e1e87;
+  border: 1px solid #fff;
+}
+
+.hero_area .course_about h2 {
+  color: #fff;
+  font-size: 36px;
+  padding: 20px 0 5px;
+  border-bottom: 2px solid #fff;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.hero_area .course_about p {
+  color: #fff;
+  font-weight: 300;
+}
+
+.hero_area .author_card {
+  background-color: #2c273d;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.hero_area .author_card h3 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.hero_area .author_card p {
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.hero_area .author_card .author_details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.hero_area .author_card .author_details img {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin-right: 20px;
+}
+
+.hero_area .author_card .author_details h4 {
+  display: inline-block;
+  color: #fff;
+}
+
+.hero_area .author_card .author_details h4 span {
+  font-size: 16px;
+  display: block;
+}
+
+.hero_area .author_card .author_rating {
+  padding: 10px 0;
+  color: #fff;
+}
+
+.hero_area .author_card .author_rating img {
+  width: 12px;
+}
+
+.hero_area .author_card .author_rating .best_seller {
+  font-size: 12px;
+  background: #f4e08e;
+  padding: 3px;
+  border-radius: 10px;
+  margin-right: 3px;
+}
+
+.hero_area .author_card .author_rating span {
+  font-size: 12px;
+}
+
+.hero_area .author_card .author_rating .text-secondary {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.hero_area .author_card a {
+  border: 1px solid #fff;
+  border-radius: 3px;
+  padding: 5px;
+  color: #fff;
+  font-size: 14px;
+  margin: 0 3px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.hero_area .author_card a:hover {
+  background-color: #fff;
+  color: #663399;
+}
+.price_section {
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.price_section .price {
+  font-size: 24px;
+  color: #333;
+  font-weight: 700;
+  padding: 10px 0;
+}
+
+.price_section span {
+  padding: 0 10px;
+  font-weight: 400;
+}
+.price_section .btn-group {
+  width: 100%;
+}
+.price_section a {
+  font-size: 16px;
+  color: #2c273d;
+  width: 50%;
+  padding: 10px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 2px solid #222;
+  border-radius: 3px;
+  text-align: center;
+}
+.price_section a.active {
+  color: #fff;
+  box-shadow: 0 0 0 2px #2c273d;
+  background: #2c273d;
+}
+/* service details area */
+.service_details_area {
+  background: #b6aaf9;
+  padding: 70px 0;
+  color: #fff;
+}
+.common_block {
+  margin-bottom: 30px;
+}
+.common_block h2 {
+  margin-bottom: 20px;
+}
+
+.common_block .list_1 li p i {
+  font-size: 24px;
+  margin-right: 10px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  color: #2c273d;
+}
+
+.common_block .list_1 li p {
+  padding-left: 38px;
+  font-size: 18px;
+  position: relative;
+}
+
+.course_summery {
+  color: #2c273d;
+  background: #fff;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.course_summery p {
+  font-size: 18px;
+  margin-bottom: 15px;
+  padding-right: 20px;
+}
+
+.course_summery p i {
+  margin-right: 10px;
+}
+/* Faq */
+.accordion_wrapper_2 h3 {
+  color: #2c273d;
+}
+.accordion_wrapper_2 {
+  margin-bottom: 30px;
+}
+.card-header {
+  border: 1px solid #2c273d;
+  padding: 0;
+}
+
+.btn-link {
+  background-color: #2c273d;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  border: 0px;
+  font-weight: 700;
+  text-align: left;
+  border: none;
+  text-decoration: none;
+}
+.collapsed.btn-link {
+  background: #fff;
+  color: #2c273d;
+}
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
+  border: none;
+}
+.btn-link:hover {
+  color: #fff;
+  background-color: #2c273d;
+}
+.card {
+  border: none;
+}
+
+.card-body {
+  background: #fff;
+}
+
+/* dj section */
+.dj_area.topArea {
+  padding: 150px 0 40px;
+  background: #fff;
+}
+/* @media only screen and (min-width: 1200px) {
+  .container {
+    max-width: calc(100% - 180px) !important;
+  }
+}
+
+@media (min-width: 1200px) {
+    
+    .container {
+        max-width: 1300px;
+    }
+} */
