@@ -70,35 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div> <!-- /.banar-content -->
                 </div> <!-- /.container -->
             </div> <!-- /.banar-area -->
-            <div class="aboutContents">
-                <img src="<?= base_url(); ?>assets/img/cloudShapeBottom.png" alt="" class="shapeimg">
-                <img src="<?= base_url(); ?>assets/img/cloudShapeTop.png" alt="" class="shapeimg topSha">
-                <img src="<?= base_url(); ?>assets/img/dottedShape.png" alt="" class="shapeimg dotted">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="aboutcontent">
-                                <h2 class="aboutTitle">ABOUT US <span>MASTER CLAP </span></h2>
-                                <p>We are a Delhi based company that wants to create a platform for students across India to follow their passion by learning directly from Elite. Our team shares love of learning and creating opportunity for passionate individuals.
-MasterClap shoots the courses directly with the trainers so they can teach their exact techniques, exercises, practical tips and secrets. Our role is a helping hand in your performance and achievement. We believe in just one thing - Do what you love, and you will find the way to get it out to the world.
-</p>
-                            </div>
-                        </div> <!-- /.col-md-6 -->
-                        <div class="col-md-6">
-                            <div class="aboutImg">
-                                <img src="<?= base_url(); ?>assets/img/aboutImg.png" alt="">
-                            </div>
-                        </div> <!-- /.col-md-6 -->
-                        <div class="col-md-2">&nbsp;</div>
-                        <div class="col-md-8">
-                            <div align="center"><?= br(2); ?>
-                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/7dFwZMoI8iQ?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-2">&nbsp;</div>
-                    </div> <!-- /.row -->
-                </div> <!-- /.container -->
-            </div> <!-- /.aboutContents -->
+             <!-- /.aboutContents -->
         </section>
         <section class="profileSliderArea">
             <div class="container">
