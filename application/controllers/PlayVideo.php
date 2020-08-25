@@ -19,7 +19,7 @@ class PlayVideo extends CI_controller
 		$ip = $_SERVER['REMOTE_ADDR'];
 		date_default_timezone_set('Asia/Kolkata');
 		$date = date('Y-m-d');
-		$checkPlayVideoId = $this->SiteModel->checkPlayVideoId($id);
+		$checkPlayVideoId = $this->SiteModel->checkPlayVideoId($id); 
 		$userId = $this->session->userdata("ClientId");
 		if($checkPlayVideoId == 0)
 		{

@@ -28,4 +28,17 @@ class PayNow extends CI_controller
 		$this->load->view("PayNow",["cart"=>$getCartToPay,"user"=>$getUser]);
 
 	}
+	public function renew()
+	{
+		$userId = $this->session->userdata("ClientId");
+
+		//$cartById = $this->SiteModel->cartById($id,$userId);
+		$getCartToPay = $this->SiteModel->getCartToPayRenew($userId);
+		$getUser = $this->SiteModel->getUserDetails($userId);
+		//echo "<pre>";
+		//print_r($cartById);
+		
+		$this->load->view("PayNow",["cart"=>$getCartToPay,"user"=>$getUser]);
+
+	}
 }

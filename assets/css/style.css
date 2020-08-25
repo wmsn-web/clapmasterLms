@@ -588,16 +588,16 @@ ul.rating {
     display: flex;
     align-items: center;
     font-size: 15px;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 ul.rating li {
-    font-size: 23px;
+    font-size: 14px;
     color: #FFA233;
 }
 
 ul.rating:after {
-    content: "a year ago";
+    content: "";
     font-size: 18px;
     color: #898888;
     margin-left: 19px;

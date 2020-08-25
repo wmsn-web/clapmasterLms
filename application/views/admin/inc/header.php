@@ -38,12 +38,9 @@
 								<div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
 									<div class="main-header-profile header-img">
 										<div class="main-img-user"><img alt="" src="<?= base_url(); ?>admin_assets/img/faces/5.jpg"></div>
-										<h6>Elizabeth Jane</h6><span>Premium Member</span>
+										<h6>Admin</h6><span>Masterclap.in</span>
 									</div>
-									<a class="dropdown-item" href=""><i class="far fa-user"></i> My Profile</a>
-									<a class="dropdown-item" href=""><i class="far fa-edit"></i> Edit Profile</a>
-									<a class="dropdown-item" href=""><i class="far fa-clock"></i> Activity Logs</a>
-									<a class="dropdown-item" href=""><i class="fas fa-sliders-h"></i> Account Settings</a>
+									
 									<a class="dropdown-item" href="<?= base_url('admin_panel/Home/logout'); ?>"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
 								</div>
 							</div>
@@ -91,19 +88,14 @@
 								<div class="dropdown-menu dropdown-menu-arrow animated fadeInUp">
 									<div class="main-header-profile header-img">
 										<div class="main-img-user"><img alt="" src="<?= base_url(); ?>admin_assets/img/faces/5.jpg"></div>
-										<h6>Elizabeth Jane</h6><span>Premium Member</span>
+										<h6>Admin</h6><span>masterclap.in</span>
 									</div>
-									<a class="dropdown-item" href=""><i class="far fa-user"></i> My Profile</a>
-									<a class="dropdown-item" href=""><i class="far fa-edit"></i> Edit Profile</a>
-									<a class="dropdown-item" href=""><i class="far fa-clock"></i> Activity Logs</a>
-									<a class="dropdown-item" href=""><i class="fas fa-sliders-h"></i> Account Settings</a>
+									
 									<a class="dropdown-item" href="<?= base_url('admin_panel/Home/logout'); ?>"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
 								</div>
 							</div>
 							<div class="dropdown main-header-message right-toggle">
-								<a class="nav-link " data-toggle="sidebar-right" data-target=".sidebar-right">
-									<i class="ti-menu tx-20 bg-transparent"></i>
-								</a>
+								
 							</div>
 						</div>
 					</div>

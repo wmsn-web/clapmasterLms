@@ -1,9 +1,11 @@
+<?php $aws_server = $this->SiteModel->aws_server(); ?>
 <!doctype html>
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 		<?php include("inc/form_layout.php"); ?>
 		<title> Chapter Content - Admin Panel</title>
 	</head>
@@ -71,9 +73,9 @@
 											<div class="form-group">
 												<label>Upload Video Type</label><br>
 												
-												<input type="radio" name="video_type" required="required" value="file" checked="checked"> <label>Upload Video File</label>
+												<input type="radio" name="video_type" required="required" value="file"> <label>Upload Video File</label>
 												
-												<input type="radio" name="video_type" required="required" value="link"> <label>Upload Video Link</label>
+												<input type="radio" name="video_type" required="required" value="link"  checked="checked"> <label>Upload Video Link</label>
 											</div>
 										</div>
 									</div>
@@ -85,12 +87,14 @@
 												<label>Thumbnail Image</label>
 												<input type="file" name="thumbs" class="dropify" data-height="200" />
 											</div>
+											<div id="ifrm" class="form-group">
+												<iframe src="<?= $aws_server['serverUrl']; ?>" style="border: none; width: 100%" ></iframe>
+											</div>
+											<div id="fileNamesd">
 											<div class="form-group vidupl">
-												<label>Add Video ID</label><br>
-												<!--label for="vidFile" class="vidlbl">
-													<img src="<?= base_url('admin_assets/img/brand/smallLogo.png'); ?>">
-												</label-->
-												<input type="text" id="vidFiles" name="vidfile" data-height="200" required="required" />
+												<label>Paste Video File Name</label><br>
+												
+												<input type="text" id="vidFiles" name="vidfile"  required="required" class="form-control" />
 											</div>
 											<div class="vidDone">
 												<i class="fas fa-file-video text-warning"></i>
@@ -102,6 +106,7 @@
 											</div>
 										</div>
 									</div>
+									</div>
 								</form>
 							    </div>
 							    <div id="uploadLink">
@@ -110,6 +115,7 @@
 												<label>Thumbnail Image</label>
 												<input type="file" name="thumbs" class="dropify" data-height="200" />
 											</div>
+
 							    	<div class="form-group">
 										<label>Video Link</label>
 										<input type="text" name="video_link" class="form-control" placeholder="Youtube video ID"  />
@@ -155,12 +161,13 @@
 												<label>Thumbnail Image</label>
 												<input type="file" name="thumbs" class="dropify" data-height="200" />
 											</div>
+											<div id="ifrm" class="form-group">
+												<iframe src="<?= $aws_server['serverUrl']; ?>" style="border: none; width: 100%" ></iframe>
+											</div>
 											<div class="form-group vidupl">
-												<label>Choose Video</label><br>
-												<label for="vidFile" class="vidlbl">
-													<img src="<?= base_url('admin_assets/img/brand/smallLogo.png'); ?>">
-												</label>
-												<input type="file" id="vidFile" name="vidfile" data-height="200" required="required" />
+												<label>Paste Video File Name Here</label><br>
+												
+												<input type="text" id="vidFile" name="vidfile"  required="required" class="form-control" />
 											</div>
 											<div class="vidDone">
 												<i class="fas fa-file-video text-warning"></i>
@@ -191,9 +198,11 @@
 		<?php include("inc/form_js.php"); ?>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				$("#uploadLink").hide();
+				$("#uploadLink").show();
 				$("#previewFile").hide();
 				$("#pewviewLink").hide();
+				$("#uploadFile").hide();
+				$("#fileNames").hide();
 
 				$(".flashd").fadeOut(5000);
 				$("#vidFile").change(function(){

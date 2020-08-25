@@ -42,7 +42,7 @@
 								<h3 class="card-title">All Courses</h3>
 							</div>
 							<div class="card-body">
-								<table class="table table-bordered" id="example2">
+								<table class="table table-bordered" id="example33">
 									<thead>
 										<tr>
 											<th>SL</th>
@@ -62,7 +62,7 @@
 														<a onclick="return confirm('<?= $key['txt']; ?>')" href="<?= base_url('admin_panel/AllCourses/publish/'.$key['crsId']); ?>">
 														<button class="btn btn-primary"><?= $key['btn']; ?></button>
 													</td>
-													<td style="width: 20%"><?= html_entity_decode($key['descr']); ?></td>
+													<td style="width: 20%"><?= html_entity_decode(substr($key['descr'],0,100)); ?></td>
 													<td>
 														<a class="modal-effect adcp" data-effect="effect-newspaper" id="<?= $key['crsId']; ?>" data-toggle="modal" href="#modaldemo8">Add Level</a><br>
 														<span id="<?= $slid; ?>" class="selectArrow"><i class="fas fa-angle-down"></i></span>
@@ -97,7 +97,7 @@
 								</table>
 							</div>
 						</div>
-					</div>
+					</div> 
 				</div>
 
 				<div class="modal" id="modaldemo8">
@@ -117,7 +117,7 @@
 								<label>Position</label>
 								<select name="position" class="form-control" required="required">
 									<option value="">Select</option>
-									<?php $s =1; for ($i=0; $i < 8; $i++) {
+									<?php $s =1; for ($i=0; $i < 25; $i++) {
 									 $ss = $s++;
 									 if($ss==1){$st = "st";}elseif ($ss==2) {$st="nd";}elseif ($ss==3) {$st="rd";}else{$st="th";}
 									 	

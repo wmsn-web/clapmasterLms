@@ -2,9 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html lang="en">
-  	<head>
-    	<title>MY Cart - Clap Master</title>
-    	<?php include('inc/layout.php'); ?> 
+    <head>
+        <title>MY Cart - Clap Master</title>
+        <?php include('inc/layout.php'); ?> 
         <style type="text/css">
             .tlb {width:100%;}
             .tlb td{padding: 2px 2px; border-bottom: solid 1px #fff}
@@ -14,11 +14,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             span.right{float: right; cursor: pointer; color: #FFC7FD}
 
         </style>
-	</head>
-	<body>
-		<div class="wrapers">
-			<?php include('inc/menu.php'); ?> 
-			<section class="hero_area themeColor">
+    </head>
+    <body>
+        <div class="wrapers">
+            <?php include('inc/menu.php'); ?> 
+            <section class="hero_area themeColor">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php foreach($key['items'] as $itm){ ?>
                                                 <?= $itm['title'].$itm['chapName']." | "; ?>
                                             <?php } ?>
-                                            <?= "(".$key['course'].$key['level'].")"; ?>
+                                            <?= "(".urldecode($key['course']).urldecode($key['level']).")"; ?>
                                             </span>
                                         </td>
                                         <td style="text-align: right;"><?= number_format($key['price'],2); ?></td>
@@ -107,14 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                  <tr>
                                         <th><?= nbs(5); ?></th>
                                         <th>
-                                            <?php if($totBalance['discount']==null){ ?>
-                                                Do you have Coupon code ?
-                                                <input type="text" id="coupon" placeholder="Apply Coupon code">
-                                                <input type="submit" id="sub" class="bnt" value="Apply">
-                                                <span class="msgCpn"></span>
-                                            <?php }else{ ?>
-                                                Discount Applied <i class="fa fa-check"></i>
-                                            <?php } ?>
+                                           
                                         </th>
                                         <td>Sub Tota =</td>
                                         <td style="text-align: right;"><span id="totbal"><?= number_format($totBalance['totprice'],2); ?></span></td>
@@ -140,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                             </table>
                             <div style="float: right;"><?= br(2); ?>
-                            <a href="<?= base_url('MyCart/processCheckOut/'.$gross.'/'.$txx); ?>">
+                            <a href="<?= base_url('MyCart/processCheckOutRenew/'.$gross.'/'.$txx); ?>">
                                 <button class="btn btn-light">Checkout Now</button> 
                             </a>
                             </div>
@@ -153,10 +146,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </section>
 
         
-		<?php include('inc/footer.php'); ?>
-		</div>
-		<?php include('inc/modal.php'); ?>
-		<?php include('inc/js.php'); ?>
+        <?php include('inc/footer.php'); ?>
+        </div>
+        <?php include('inc/modal.php'); ?>
+        <?php include('inc/js.php'); ?>
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#alrt").fadeOut(5000);

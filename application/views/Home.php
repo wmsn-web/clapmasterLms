@@ -22,16 +22,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="catagoryList">
                                         <div id="owl-example" class="owl-carousel">
                                             <?php if(!empty($getCourse)){ ?>
-                                            <?php foreach ($getCourse as $key) { ?> 
+                                            <?php foreach ($getCourse as $key) {
+                                                if(strlen($key['course_name']) >10)
+                                                {
+                                                    $course_name = "<b style='font-size:10px'>".$key['course_name']."</b>";
+                                                }
+                                                else
+                                                {
+                                                    $course_name = "<b style='font-size:12px'>".$key['course_name']."</b>";
+                                                }
+                                             ?> 
                                             <div class="singlecataGoryItem" id="<?= $key['crsId']; ?>">
                                                 <div class="catagoryImg" style="background: url('<?= base_url('uploads/videos/'.$key['crsImg']); ?>'); background-size: cover; height: 105px; text-align: center;">
                                                     <div class="vdbbx">
                                                         <i class="fas fa-play playHome"></i>
                                                     </div>
                                                 </div>
-                                                <a href="<?= base_url("Course/viewCourse/".$key['crsId']); ?>" class="catagoryBtn"><?= $key['course_name']; ?> <span><i class="fas fa-chevron-right"></i></span></a>
-                                                <p><?= substr($key['descr'],0,50); ?></p>
-                                                    <a href="<?= base_url("Course/viewCourse/".$key['crsId']); ?>" class="readMore">Read More</a>
+                                                <a href="<?= base_url("Course/viewCourse/".$key['crsId']); ?>" class="catagoryBtn"><?= $course_name; ?> <span><i class="fas fa-chevron-right"></i></span></a>
+                                                <div class="btm-desc">
+                                                    <p><?= substr($key['descr'],0,20); ?></p>
+                                                </div>
+                                                <a href="<?= base_url("Course/viewCourse/".$key['crsId']); ?>" class="readMore">Read More</a>
                                             </div>
                                             <?php } ?>
                                             <?php } ?> 
@@ -79,18 +90,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="profileImg">
                             <img src="<?= base_url(); ?>assets/img/profileimg-1.png" alt="">
                         </div>
-                        <h3 class="proName">Mr.Joseph Green</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
+                        <div class="testim">
+                            <h3 class="proName">Mr. Rohan mehran</h3>
+                            <p>I just wanted to say that your acting course has made a world of difference in my professional life.  Since taking it, I'm getting called back so much more and I'm booking a ton -- in fact, my first commercial as a lead will start airing soon.  I look at myself a year ago and I can't believe how far your class has helped me come. Thank you so much!     </p>
+                            <div class="prRating">
+                                <span class="view"><i class="fas fa-eye"></i> 15</span>
+                                <span class="like"><i class="fas fa-comments"></i>14</span>
+                                <ul class="rationg">
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                </ul>
+                            </div>
                         </div>
                        
                     </div> <!-- /.profileSliderItem -->
@@ -98,18 +111,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="profileImg">
                             <img src="<?= base_url(); ?>assets/img/profileimg-2.png" alt="">
                         </div>
-                        <h3 class="proName">Mrs.Elena Smith</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
+                        <div class="testim">
+                            <h3 class="proName">Mr. Ahmend khan</h3>
+                            <p>I just finished the DJ course and am so happy with all the "gems" I took away. Never too seasoned to learn more!!!!! GREAT COURSE. </p>
+                            <div class="prRating">
+                                <span class="view"><i class="fas fa-eye"></i> 15</span>
+                                <span class="like"><i class="fas fa-comments"></i>14</span>
+                                <ul class="rationg">
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                </ul>
+                            </div>
                         </div>
                         
                     </div> <!-- /.profileSliderItem -->
@@ -117,18 +132,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="profileImg">
                             <img src="<?= base_url(); ?>assets/img/profileimg-3.png" alt="">
                         </div>
-                        <h3 class="proName">Mr.Amit Yadav</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
+                        <div class="testim">
+                            <h3 class="proName">Mr.Pulkit Yadav</h3>
+                            <p>“THANK YOU so much for your beautiful energy, support, creativity, guidance, talent and directing skills, not only in the 2 classes I've had the privilege of taking with you, but in life in general. Your unconditional support and desire for everyone to succeed is so inspiring not only to receive but to witness. You truly are a gift on both sides of the camera and I really cannot thank you enough for all that you do. This last class was beyond all expectations and I look forward to taking more with you in the future! I have recommended you to all that I know and reviewed you on all platforms and have meant every word I have said. You really take care of us actors and your expertise and experience and overall heart shine through in all that you do.” –</p>
+                            <div class="prRating">
+                                <span class="view"><i class="fas fa-eye"></i> 15</span>
+                                <span class="like"><i class="fas fa-comments"></i>14</span>
+                                <ul class="rationg">
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                </ul>
+                            </div>
                         </div>
                         
                     </div> <!-- /.profileSliderItem -->
@@ -136,106 +153,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="profileImg">
                             <img src="<?= base_url(); ?>assets/img/profileimg-4.png" alt="">
                         </div>
-                        <h3 class="proName">Mr.Sudhir Kumar</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
+                        <div class="testim">
+                            <h3 class="proName">Mr. Ruhaan shaikh</h3>
+                            <p>Love your energy and  positive approach to helping singing breakdown commercial copy.  . This last class was beyond all expectations and I look forward to taking more with you in the future!Will be back for the ongoing workout, soon!!!     </p>
+                            <div class="prRating">
+                                <span class="view"><i class="fas fa-eye"></i> 15</span>
+                                <span class="like"><i class="fas fa-comments"></i>14</span>
+                                <ul class="rationg">
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                    <li><i class="fas fa-star"></i></li>
+                                </ul>
+                            </div>
                         </div>
                         
                     </div> <!-- /.profileSliderItem -->
-                    <div class="profileSliderItem">
-                        <div class="profileImg">
-                            <img src="<?= base_url(); ?>assets/img/profileimg-1.png" alt="">
-                        </div>
-                        <h3 class="proName">Mr.Joseph Green</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
-                        </div>
-                        
-                    </div> <!-- /.profileSliderItem -->
-                    <div class="profileSliderItem">
-                        <div class="profileImg">
-                            <img src="<?= base_url(); ?>assets/img/profileimg-2.png" alt="">
-                        </div>
-                        <h3 class="proName">Mrs.Elena Smith</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
-                        </div>
-                        
-                    </div> <!-- /.profileSliderItem -->
-                    <div class="profileSliderItem">
-                        <div class="profileImg">
-                            <img src="<?= base_url(); ?>assets/img/profileimg-3.png" alt="">
-                        </div>
-                        <h3 class="proName">Mr.Amit Yadav</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
-                        </div>
-                        
-                    </div> <!-- /.profileSliderItem -->
-                    <div class="profileSliderItem">
-                        <div class="profileImg">
-                            <img src="<?= base_url(); ?>assets/img/profileimg-4.png" alt="">
-                        </div>
-                        <h3 class="proName">Mr.Sudhir Kumar</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <div class="prRating">
-                            <span class="view"><i class="fas fa-eye"></i> 15</span>
-                            <span class="like"><i class="fas fa-comments"></i>14</span>
-                            <ul class="rationg">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                            </ul>
-                        </div>
-                        
-                    </div> <!-- /.profileSliderItem -->
+                     <!-- /.profileSliderItem -->
+                     
                 </div> <!-- /.profileSlider -->
             </div> <!-- /.container -->
         </section>
         <section class="howWorkArea">
             <div class="container">
-                <h1 class="workTitle">How It's Works ?</h1>
+                <h1 class="workTitle">How It Works ?</h1>
                 <div class="work-ProcesBox">
                     <div class="row">
                         <div class="col-md-6 order-1 order-md-0">
+                            <?= br(2); ?>
                             <div class="workimg">
                                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/7dFwZMoI8iQ?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" allowfullscreen></iframe>
                             </div>
@@ -243,10 +189,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col-md-6">
                             <div class="workContentff">
                                 <h4>Easily find quality matches</h4>
-                                <p>On Upwork you’ll find a range of top freelancers and agencies, from developers and development agencies to designers and creative agencies, copywriters, campaign managers, marketing agencies and marketers, customer support reps, and more. <br> <br>
+                                <p>Its simple and easy to access our online course. Learn from the best anytime, anywhere from the mobile, desktop and raise your skills in singing,dj,acting and many more.This guide is all about passion. Your passion for your course, and for your future career. Because the secret to happiness is being able to love whatever it is you do in life.Kindly, go along with following steps:</p>
 
-                                Start by posting a job. Tell us about your project and the specific skills required. Learn how. <br>
-                                Upwork analyzes your needs. Our search functionality uses data science to highlight the best freelancers and agencies based on their skills, helping you find talent that’s a good match.</p>
+                                <div class="timeline">
+                                  <div class="cont left">
+                                    <div class="contents">
+                                      Please select or choose a course
+                                    </div>
+                                  </div>
+                                  <div class="cont right">
+                                    <div class="contents">
+                                      Add it in your cart
+                                    </div>
+                                  </div>
+                                  <div class="cont left">
+                                    <div class="contents">
+                                      Login into account.
+                                    </div>
+                                  </div>
+                                  <div class="cont right">
+                                    <div class="contents">
+                                      Make the payment
+                                    </div>
+                                  </div>
+                                  <div class="cont left">
+                                    <div class="contents">
+                                      View in my course
+                                    </div>
+                                  </div>
+                                  <div class="cont right">
+                                    <div class="contents">
+                                      Finalize the course
+                                    </div>
+                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div> <!-- /.row -->
@@ -260,10 +236,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="container">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Career</a>
+                        <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Career</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">About us</a>
+                        <a class="nav-link  active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">About us</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact us</a>
@@ -284,7 +260,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="container">
                     <div class="">
                         <div class="tab-content" id="pills-tabContent">
-                          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                          <div class="tab-pane fade show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="bx-full bx-brd">
                                 <div class="bx-white">
                                     <h3>Career</h3>
@@ -292,7 +268,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         MasterClap is transforming online education by enabling anyone in the world to learn from the very best. Our trainers include best minds who are passionate about their art and want to share their knowledge. We are unravelling what makes an actor able to cry on demand, how a singer able to bring soul to music , and what it takes to snap a best view. Our online learning content is available to students anywhere anytime, which supports our mission to ignite the greatness in others. We will provide you with a Certificate.
                                     </p>
                                     <div class="bx-content">
-                                        <form action="<?= base_url('Home/sendQuery'); ?>" method="post" class="border-form shaddow-form">
+                                        <form action="<?= base_url('Home/sendQuery'); ?>" method="post" class="border-form shaddow-form" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <h4>Introduce yourself</h4>
@@ -304,23 +280,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Email Address</label>
-                                                        <input type="text" name="name" class="form-control" required="required">
+                                                        <input type="text" name="email" class="form-control" required="required">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mobile Number</label>
-                                                        <input type="text" name="name" class="form-control" required="required">
+                                                        <input type="text" name="mobile" class="form-control" required="required">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Upload Resume</label>
-                                                        <input type="file" name="name" class="form-control-file" accept=
-"application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-text/plain, application/pdf, image/*" required="required">
+                                                        <input type="file" name="cvfile" class="form-control-file" accept=
+"application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*" required="required">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Send Query</label>
-                                                        <textarea name="name" class="form-control" required="required" placeholder="Write Something About You"></textarea>
+                                                        <label>Something About You</label>
+                                                        <textarea name="mssg" class="form-control" required="required" placeholder="Write Something About You"></textarea>
                                                         <br>
                                                         <button class="btn btn-primary">Send</button>
                                                     </div>
@@ -331,7 +307,7 @@ text/plain, application/pdf, image/*" required="required">
                                 </div>
                              </div>
                           </div>
-                          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                          <div class="tab-pane fade show  active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="bx-full bx-brd">
                                 <div class="container">
                                     <div class="row">
@@ -360,27 +336,61 @@ text/plain, application/pdf, image/*" required="required">
                             </div>
                           </div>
                           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                              <div class="inofContents">
-                                  <h3>Contact us</h3>
-                                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
-                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
-                                    minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut 
-                                    aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in 
-                                    vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at 
-                                    vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril 
-                                    delenit augue duis dolore te feugait nulla facilisi.</p>
-                             </div>
+                              <div class="bx-full bx-brd">
+                                    <div class="bx-content bx-white">
+                                      <div class="row">
+                                          <div class="col-md-5">
+                                              <h5 class="">Contact Person</h5>
+                                                <span class="">
+                                                    <b><i class="fa fa-user"></i> Name-</b> ANSH NAGPAL<br>
+                                                    <b><i class="fa fa-phone"></i> Contact no-</b> +91 9650 744 530<br>
+                                                    <b><i class="fa fa-envelope"></i> Email-</b> info@masterclap.in<br>
+                                                    <b><i class="fa fa-envelope"></i> Email-</b> masterclap.in@gmail.com<br>
+                                                </span> 
+                                                <img src="<?= base_url('assets/img/aboutImg.png'); ?>" class="img-responsive" />
+                                                <ul class="followContact">
+                        <li><a target="_blank" href="https://www.facebook.com/112535730511932/posts/118324056599766/?substory_index=0"><i class="fab fa-facebook"></i></a></li>
+                        <li><a target="_blank" href="https://www.linkedin.com/in/master-clap-6060311b1"><i class="fab fa-linkedin "></i></a></li>
+                        <li><a target="_blank" href="https://twitter.com/MasterClap1"><i class="fab fa-twitter"></i></a></li>
+                        <li><a target="_blank" href="https://www.instagram.com/masterclap.inc/"><i class="fab fa-instagram
+"></i></a></li>
+                        <li><a target="_blank" href="https://in.pinterest.com/masterclap/"><i class="fab fa-pinterest-square"></i></a></li>
+                    </ul> 
+                                          </div>
+                                          <div class="col-md-7">
+                                              <form action="<?= base_url('Home/sendContact'); ?>" method="post" class="border-form shaddow-form">
+                                                  <h5>Send Us your query</h5>
+                                                  <div class="form-group">
+                                                        <label>Full Name</label>
+                                                        <input type="text" name="name" class="form-control" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Email Address</label>
+                                                        <input type="text" name="email" class="form-control" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mobile Number</label>
+                                                        <input type="text" name="mobile" class="form-control" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Message</label>
+                                                        <textarea name="mssg" class="form-control" required="required" placeholder="Write your query"></textarea>
+                                                        <br>
+                                                        <button class="btn btn-primary">Send</button>
+                                                    </div>
+                                              </form>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
                           </div>
                           <div class="tab-pane fade" id="pills-contact-2" role="tabpanel" aria-labelledby="pills-contact-tab">
                               <div class="inofContents">
                                   <h3>Help & Support</h3>
-                                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
-                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
-                                    minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut 
-                                    aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in 
-                                    vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at 
-                                    vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril 
-                                    delenit augue duis dolore te feugait nulla facilisi.</p>
+                                  <p>We're here to answer any questions you have about masterclap or our courses.<br>
+Contact us: support@masterclap.in
+</p>
+
                              </div>
                           </div>
                           <div class="tab-pane fade" id="pills-contact-3" role="tabpanel" aria-labelledby="pills-contact-tab">
@@ -411,13 +421,49 @@ If you do not agree with (or cannot comply with) Agreements, then you may not us
             <div class="container">
                 <div class="feedbackContainer">
                     <h2>Feedback</h2>
+                    <div class="row">
+                <?php 
+                    //$this->db->distinct();
+                    //$this->db->select("user_id");
+                    $this->db->order_by("id","DESC");
+                    $this->db->limit(4);
+                    $getReviews = $this->db->get("video_likes");
+                    if($getReviews->num_rows()==0)
+                    {
+                        $dataReview = array();
+                    }
+                    else
+                    {
+                        $row = $getReviews->result();
+                        foreach ($row as $keyR) {
+                        $this->db->where("id",$keyR->user_id);
+                        $getUser = $this->db->get("users_profile")->row();
+                           $dataReview[] = array
+                                                (
+                                                    "user_id"=>$keyR->user_id,
+                                                    "name"=>$getUser->name,
+                                                    "comments"=>$keyR->comments,
+                                                    "dates"=>$keyR->date
+                                                );
+                        }
+                        
+                    }
+                ?>
+                <?php if(!empty($dataReview)){ ?>
+                    <?php foreach($dataReview as $rev){
+                        $expl = explode(" ",$rev['name']);
+                        $fl = substr(@$expl[0], 0,1);
+                        $ll = substr(@$expl[1], 0,1);
+                        $dt = date_create($rev['dates']);
+                        $newDate = date_format($dt,'F')." ".date_format($dt,'d').", ".date_format($dt,'Y');
+                     ?>
+                     <?php /*
                     <div class="singleFeedbackBox">
                         <div class="feedProfile">
-                            <div class="feedImg"><img src="<?= base_url(); ?>assets/img/feedImg.png" alt=""></div>
+                            <div class="feedImgDiv"><?= strtoupper($fl.$ll); ?></div>
                             <div class="feedUser">
-                                <a href="#" class="name">Arissa Bolton </a>
-                                <span>29 course</span>
-                                <span>9 reviews </span>
+                                <a href="#" class="name"><?= $rev['name']; ?></a>
+                                <span><?= $newDate; ?></span>
                             </div>
                         </div> <!-- /.feedProfile -->
                         <ul class="rating">
@@ -427,97 +473,59 @@ If you do not agree with (or cannot comply with) Agreements, then you may not us
                             <li><i class="fas fa-star"></i></li>
                             <li><i class="fas fa-star"></i></li>
                         </ul>
-                        <p>I really enjoyed the class and got a lot out of it. The instruction style was very easy to follow. There were a few things that were different on my version that made things a little confusing but I was able to figure it out. I like that there is a Facebook group where I could get more immediate​ feedback as I never did quite figure out the feedback part in Master Clap.</p>
+                        <p><?= $rev['comments']; ?></p>
                         <div class="likeFeed">
                             
                         </div>
                     </div> <!-- /.singleFeedbackBox -->
-                    <div class="singleFeedbackBox">
-                        <div class="feedProfile">
-                            <div class="feedImg"><img src="<?= base_url(); ?>assets/img/feedImg.png" alt=""></div>
-                            <div class="feedUser">
-                                <a href="#" class="name">Arissa Bolton </a>
-                                <span>29 course</span>
-                                <span>9 reviews </span>
-                            </div>
-                        </div> <!-- /.feedProfile -->
-                        <ul class="rating">
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                        </ul>
-                        <p>I really enjoyed the class and got a lot out of it. The instruction style was very easy to follow. There were a few things that were different on my version that made things a little confusing but I was able to figure it out. I like that there is a Facebook group where I could get more immediate​ feedback as I never did quite figure out the feedback part in Master Clap.</p>
-                        <div class="likeFeed">
-                            
-                        </div>
-                    </div> <!-- /.singleFeedbackBox -->
-                    <div class="singleFeedbackBox">
-                        <div class="feedProfile">
-                            <div class="feedImg"><img src="<?= base_url(); ?>assets/img/feedImg.png" alt=""></div>
-                            <div class="feedUser">
-                                <a href="#" class="name">Arissa Bolton </a>
-                                <span>29 course</span>
-                                <span>9 reviews </span>
-                            </div>
-                        </div> <!-- /.feedProfile -->
-                        <ul class="rating">
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                        </ul>
-                        <p>I really enjoyed the class and got a lot out of it. The instruction style was very easy to follow. There were a few things that were different on my version that made things a little confusing but I was able to figure it out. I like that there is a Facebook group where I could get more immediate​ feedback as I never did quite figure out the feedback part in Master Clap.</p>
-                        <div class="likeFeed">
-                            
-                        </div>
-                    </div> <!-- /.singleFeedbackBox -->
-                    <div class="singleFeedbackBox">
-                        <div class="feedProfile">
-                            <div class="feedImg"><img src="<?= base_url(); ?>assets/img/feedImg.png" alt=""></div>
-                            <div class="feedUser">
-                                <a href="#" class="name">Arissa Bolton </a>
-                                <span>29 course</span>
-                                <span>9 reviews </span>
-                            </div>
-                        </div> <!-- /.feedProfile -->
-                        <ul class="rating">
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                        </ul>
-                        <p>I really enjoyed the class and got a lot out of it. The instruction style was very easy to follow. There were a few things that were different on my version that made things a little confusing but I was able to figure it out. I like that there is a Facebook group where I could get more immediate​ feedback as I never did quite figure out the feedback part in Master Clap.</p>
-                        <div class="likeFeed">
-                            
-                        </div>
-                    </div> <!-- /.singleFeedbackBox -->
-                    <div class="singleFeedbackBox">
-                        <div class="feedProfile">
-                            <div class="feedImg"><img src="<?= base_url(); ?>assets/img/feedImg.png" alt=""></div>
-                            <div class="feedUser">
-                                <a href="#" class="name">Arissa Bolton </a>
-                                <span>29 course</span>
-                                <span>9 reviews </span>
-                            </div>
-                        </div> <!-- /.feedProfile -->
-                        <ul class="rating">
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                            <li><i class="fas fa-star"></i></li>
-                        </ul>
-                        <p>I really enjoyed the class and got a lot out of it. The instruction style was very easy to follow. There were a few things that were different on my version that made things a little confusing but I was able to figure it out. I like that there is a Facebook group where I could get more immediate​ feedback as I never did quite figure out the feedback part in Master Clap.</p>
-                        <div class="likeFeed">
-                            
-                        </div>
-                    </div> <!-- /.singleFeedbackBox -->
+                     <!-- /.singleFeedbackBox -->
+                 
+                 */ ?>
+
+                 <div class="col-md-6 mb-3">
+                             <div class="card  ht-320">
+                                 <div class="card-body">
+                                     <div class="feedProfile">
+                                        <div class="feedImgDiv"><?= strtoupper($fl.$ll); ?></div>
+                                        <div class="feedUser">
+                                            <a href="#" class="name"><?= $rev['name']; ?></a>
+                                            <ul class="rating">
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                            </ul>
+                                            <span><?= $newDate; ?></span>
+                                        </div>
+                                    </div> <!-- /.feedProfile -->
+                                    <p><?= $rev['comments']; ?></p>
+                                 </div>
+                             </div>
+                         </div>
+                 <?php } ?>
+                 <?php } ?>
+                     
+                        
+                     </div>
                 </div> <!-- /.feedbackContainer -->
             </div>
+            <?php if($this->session->flashdata("send"))
+            {
+                echo "<script>
+                swal({
+      type: 'success',
+      text: 'Your request has been submitted successfully!',
+      timer: 3000,
+      onOpen: function(){
+      swal.showLoading()
+      }
+      }).then(function(){
+      window.open('Home','_self');
+});
+</script>
+";
+            } ?>
         </section>
         <?php include("inc/popHandler.php"); ?>
         <?php include('inc/footer.php'); ?>
@@ -526,6 +534,7 @@ If you do not agree with (or cannot comply with) Agreements, then you may not us
 		<?php include('inc/js.php'); ?>
         <script type="text/javascript">
 		$(document).ready(function() {
+
            var wt = $(window).width();
            if(wt <= 600)
            {
@@ -617,6 +626,23 @@ If you do not agree with (or cannot comply with) Agreements, then you may not us
           //video.pause();
           video.currentTime = 0;
      }
+
+$(".bb").click(function(){
+    swal({
+      type: 'success',
+      text: 'Your request has been submitted successfully!',
+      timer: 3000,
+      onOpen: function(){
+      swal.showLoading()
+      }
+      }).then(function(){
+      window.open('Home','_self');
+});
+
+  });
+    
+    
+
 </script>
 	</body>
 </html>

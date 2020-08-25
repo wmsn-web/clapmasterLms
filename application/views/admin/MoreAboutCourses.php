@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 		<?php include("inc/form_layout.php"); ?>
 		<title>More About Course- Admin Panel</title>
 	</head>
@@ -32,9 +33,13 @@
 							<div class="card-header">
 								<h4 class="card-title">Select Course</h4>
 								<?php if(!empty($data)){ ?>
-									<?php foreach ($data as $key): ?>
+									<?php foreach ($data as $key):
+										if($this->uri->segment(5) == $key['crsId']):
+											$class = "btn btn-primary"; else:
+											$class = "btn btn-outline-primary"; endif;
+									 ?>
 										<a href="<?= base_url('admin_panel/MoreAboutCourses/index/edit/'.$key['crsId']); ?>">
-											<button class="btn btn-outline-primary"><?= $key['course_name']; ?></button>
+											<button class="<?= $class; ?>"><?= $key['course_name']; ?></button>
 										</a>
 									<?php endforeach ?>
 								<?php } ?>
@@ -45,6 +50,7 @@
 								<button id="fq" class="btn btn-danger">FAQ</button>
 								<button id="Incl" class="btn btn-danger">Course Included</button>
 								<button id="imgg" class="btn btn-danger">Add Course Image</button>
+								<button id="teas" class="btn btn-danger">Teaser Videos</button>
 								<?= br(3); ?>
 								<div id="wht">
 									<h3>What you’ll learn?</h3>
@@ -123,6 +129,46 @@
 										</div>
 									</div>
 							    </div>
+							    <div id="teaserVid">
+							    	<?php if(!empty($getTsr)): $formclas = "updt"; ?>
+							    		<button id="showUpdt" class="btn btn-warning">Change Video</button>
+							    		<div id="vidSec">
+							    			<div class="row justify-content-center">
+							    				<div class="col-md-6">
+							    					<video controls="controls" width="100%">
+							    						<source src="https://goibooking.in/uploads/videos/<?= $getTsr['vid_file']; ?>" type="">
+							    					</video>
+							    				</div>
+							    			</div>
+							    		</div>
+							    	<?php else: $formclas = ""; ?>
+							    	<?php endif; ?>
+							    	<form class="<?= $formclas; ?>" action="<?= base_url('admin_panel/MoreAboutCourses/teaservid'); ?>" method="post" enctype="multipart/form-data">
+							    	<div class="row">
+							    		<div class="col-md-6">
+							    			<div class="form-group">
+												<label>Thumbnail Image</label>
+												<input type="file" name="thumbs" class="dropify" data-height="200" />
+											</div>
+							    		</div>
+							    		<div class="col-md-6">
+							    			<div id="ifrm" class="form-group">
+												<iframe src="https://goibooking.in/" style="border: none; width: 100%" ></iframe>
+											</div>
+											<div class="form-group vidupl">
+												<label>Paste Video File Name Here</label><br>
+												
+												<input type="text" id="vidFile" name="vidfile"  required="required" class="form-control" placeholder="Paste Video Filename Here" />
+											</div>
+											<input type="hidden" name="crs_id" value="<?= $this->uri->segment(5); ?>" >
+							    		</div>
+							    		<div class="col-md-12">
+							    			<button type="submit" class="btn btn-outline-primary">Save</button>
+							    		</div>
+							    	</div>
+							    </form>
+								
+							    </div>
 							    <?php endif; ?>
 							</div>
 						</div>
@@ -144,33 +190,49 @@
 				$("#wht").hide();
 				$("#faq").hide();
 				$("#crsIncl").hide();
+				$("#teaserVid").hide();
+				$(".updt").hide();
 				$("#wl").click(function(){
 					$("#wht").show();
 					$("#faq").hide();
 					$("#crsIncl").hide();
 					$("#setImg").hide();
-					
+					$("#teaserVid").hide();
 				});
 				$("#fq").click(function(){
 					$("#wht").hide();
 					$("#faq").show();
 					$("#crsIncl").hide();
 					$("#setImg").hide();
-
+					$("#teaserVid").hide();
 				});
 				$("#Incl").click(function(){
 					$("#wht").hide();
 					$("#faq").hide();
 					$("#crsIncl").show();
 					$("#setImg").hide();
-
+					$("#teaserVid").hide();
 				});
 				$("#imgg").click(function(){
 					$("#wht").hide();
 					$("#faq").hide();
 					$("#crsIncl").hide();
 					$("#setImg").show();
+					$("#teaserVid").hide();
 				});
+				$("#teas").click(function(){
+					$("#wht").hide();
+					$("#faq").hide();
+					$("#crsIncl").hide();
+					$("#setImg").hide();
+					$("#teaserVid").show();
+				});
+
+				$("#showUpdt").click(function(){
+					$(".updt").toggle();
+					$("#vidSec").toggle();
+				});
+
 			});
 		</script>
 		<script src="<?= base_url('ckeditor/ckeditor.js'); ?>"></script>

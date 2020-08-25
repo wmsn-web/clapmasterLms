@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <span>#<?= ucwords($key['order_id']); ?></span>
 
                                         <span style="float: right; padding-right: 10px;">
-                                            <a href="<?= base_url('MyCart/delCart/'.$key['id']); ?>">
+                                            <a href="<?= base_url('MyCart/delCart/'.$key['id']); ?>"> 
                                                 <i class="fa fa-times text-danger"></i>
                                             </a>
                                         </span>

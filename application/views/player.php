@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <h5><?= $mnVid['title']; ?></h5>
                         <?php if($mnVid['video_type']=="file"){ ?>
                         <video  id="video_1" class="vidframe video-js vjs-default-skin" width='740' height='285' poster="<?= base_url('uploads/videos/'.$mnVid['thumb']); ?>" controls controlsList="nodownload">
-                            <source src="<?= base_url('uploads/videos/'.$mnVid['video_file']); ?>"  type="video/mp4">
+                            <source src="https://goibooking.in/uploads/videos/<?= $mnVid['video_file']; ?>"  type="video/mp4">
                             Your browser does not support HTML video.
                         </video>
                     <?php }else{ ?>
@@ -185,6 +185,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?php include('inc/modal.php'); ?>
 		<?php include('inc/js.php'); ?>
         <script type="text/javascript">
+
+            
             $(document).ready(function(){
                 $("#alrt").fadeOut(5000);
                 // ______________ RATING STAR
@@ -199,7 +201,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     };
     $(".rating-stars").ratingStars(ratingOptions); 
-                setTimeout(function(){ 
+
+
+                setInterval(function(){ 
                     var vidId = "<?= $this->uri->segment(4); ?>";
                     $.post("<?= base_url('PlayVideo/viewers'); ?>",
                     {
@@ -211,7 +215,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                     )
                     
-                }, 30000);
+                }, 780000);
               $("#thu").click(function(){
                 var thu = $("#thu").html();
                 var newthu = parseInt(thu)+1;
@@ -286,6 +290,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if(response == "done")
                     {
                         $("#textCom").val("");
+                        var actual_link = '<?php (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>';
+                        location.href= actual_link;
                     }
                 }
                 )

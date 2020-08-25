@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html lang="en">
   	<head>
-    	<title>About Us - Clap Master</title>
+    	<title>About Us - Master Clap</title>
     	<?php include('inc/layout.php'); ?> 
 	</head>
 	<body>

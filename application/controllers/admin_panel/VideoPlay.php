@@ -28,7 +28,7 @@ class VideoPlay extends CI_controller
 		}
 		else
 		{
-			$getVidById = $this->AdminModel->getVidById($vidId);
+			$getVidById = $this->AdminModel->getVidById($vidId); 
 			//echo "<pre>";
 			//print_r($getVidById);
 			$this->load->view("admin/playVideo",["data"=>$getVidById]);

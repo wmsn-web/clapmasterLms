@@ -257,7 +257,7 @@
           <a href="" class="text-white">
             <span style="float: right"><i class="fa fa-times"></i></span>
           </a>
-            <div id="vidTbl"></div>
+            <div id="vidTbl"></div> 
 
         </div>
       </div>

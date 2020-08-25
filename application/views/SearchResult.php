@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                     <div class="col-md-8">
                         <h2 class="text-white"><?= $data['crsName']; ?> - <?= $data['chap_name']; ?>(Preview Video)</h2>
-                        <?php if($data['preview_type']=="files"){ ?>
+                        <?php if($data['preview_type']=="file"){ ?>
                             <video   id="video_1" class="vidframe video-js vjs-default-skin" width='740' height='285' controls="" autoplay="on" poster="<?= base_url('uploads/videos/'.$data['thumb']); ?>">
                                 <source src="<?= base_url('uploads/videos/'.$data['preview']); ?>" type="video/mp4">
                             </video>
@@ -31,10 +31,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <h5 class="text-white"><?= $data['title']; ?></h5>
                         <p class="text-white"><?= $data['descr']; ?></p>
                         <?php if($this->session->userdata('ClientId')){ ?>
-                            <a href="<?= base_url('SearchResult/adcart/'.$this->uri->segment(3).'/'.$data['price'].'/'.$data['crsName'].'/'.$data['chap_name']); ?>">
-                        <button class="btn btn-light">&#8377; <?= number_format($data['price'],2); ?>/- Buy Now</button></a>
+                            <a href="<?= base_url('SearchResult/adcart/'.$this->uri->segment(3).'/'.$data['price_now'].'/'.$data['crsName'].'/'.$data['chap_name']); ?>">
+                        <button class="btn btn-light">&#8377; <?= number_format($data['price_now'],2); ?>/- Buy Now</button></a>
                     <?php } else{ ?>
-                        <button data-toggle="modal" data-target="#signsIn" class="btn btn-light">&#8377; <?= number_format($data['price'],2); ?>/- Buy Now</button>
+                        <button data-toggle="modal" data-target="#signsIn" class="btn btn-light">&#8377; <?= number_format($data['price_now'],2); ?>/- Buy Now</button>
                     <?php } ?>
                     </div>
                     <div class="col-md-4">

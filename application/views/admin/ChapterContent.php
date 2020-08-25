@@ -1,3 +1,4 @@
+<?php $aws_server = $this->SiteModel->aws_server(); ?>
 <!doctype html>
 <html lang="en" dir="ltr">
 	<head>
@@ -51,14 +52,16 @@
 									<div class="col-md-8 seperator"> 
 										<div class="playBox">
 											<h3>Preview - <?= $data['course_name']." | ".$data['chapName']; ?></h3>
-											<?php if($data['preview_type']=="files"){ ?>
+											<?php if($data['preview_type']=="file"){ ?>
 												<video width="100%" poster="<?= base_url('uploads/videos/'.$data['prthumb']); ?>" controls>
-												  <source src="<?= base_url('uploads/videos/'.$data['preview']); ?>" type="video/mp4">
+												  <source src="<?= $aws_server['serverUrl'].$aws_server['folders'].$data['preview']; ?>" type="video/mp4">
 												  Your browser does not support the video tag.
 												</video>
+												<b>Edit Video File Name</b><br>
+												<input type="text" id="vid_name" value="<?= $data['preview']; ?>" class="b-brd"><i class="fas fa-pen"></i><?= br(3); ?>
 											<?php }else{ ?>
 												<iframe width="100%" height="315"
-												src="https://www.youtube.com/embed/<?= $data['preview_link']; ?>?rel=0" allowfullscreen>
+												src="https://www.youtube.com/embed/<?= $data['preview_link']; ?>?rel=0" allowfullscreen> 
 												</iframe>
 											<?php } ?>
 											<div class="descr">
@@ -67,6 +70,7 @@
 													
 												</span></h4>
 												<p><?= html_entity_decode($data['courseDesc']); ?></p>
+
 											</div>
 										</div>
 									</div>
@@ -83,7 +87,7 @@
 													</div>
 													<div class="vidText">
 														<span class="cls">
-															<a class="text-danger" href="<?= base_url('admin_panel/ChapterContent/delVid/'.$keyvid['id'].'/'.$data['chapId']); ?>">
+															<a onclick="return confirm('Delete This Video ?');" class="text-danger" href="<?= base_url('admin_panel/ChapterContent/delVid/'.$keyvid['id'].'/'.$data['chapId']); ?>">
 																<i class="fas fa-times"></i>
 															</a>
 															</span>
@@ -124,6 +128,23 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".flashd").fadeOut(5000);
+
+				$("#vid_name").blur(function(){
+					var vid_name = $("#vid_name").val();
+					var chapId = "<?= $this->uri->segment(4); ?>";
+
+					$.post("<?= base_url('admin_panel/ChapterContent/EditPreviewFile'); ?>",
+					{
+						chapId: chapId,
+						vid_name: vid_name
+					},
+					function(response,status)
+					{
+						alert(response);
+					}
+					)
+					
+				})
 			});
 		</script>
 	</body>

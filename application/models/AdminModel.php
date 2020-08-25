@@ -92,11 +92,17 @@ class AdminModel extends CI_model
 		}
 		else
 		{
+			$this->db->order_by("position","DESC");
+			$this->db->limit(1);
+			$getCrrs = $this->db->get("courses")->row();
+			$lastPosition = $getCrrs->position;
+			$newPos = $lastPosition+1;
 			$data = array
 						(
 							"crs_id"=>$crsId,
 							"course_name"=>$course_name,
-							"descr"=>$descr
+							"descr"=>$descr,
+							"position"=>$newPos
 						);
 			$this->db->insert("courses",$data);
 			$return = "succ";
@@ -139,7 +145,8 @@ class AdminModel extends CI_model
 												"full_price"=>$key2->full_course_price,
 												"full_discount"=>$key2->full_course_discount,
 												"each_price"=>$key2->each_video_price,
-												"each_discount"=>$key2->each_video_discount
+												"each_discount"=>$key2->each_video_discount,
+
 											);
 						}
 					
@@ -162,7 +169,9 @@ class AdminModel extends CI_model
 							"descr"=>$key->descr,
 							"chapData"=>$chapData,
 							"btn"=>$btn,
-							"txt"=>$txt
+							"txt"=>$txt,
+							"totalCourse"=>$get->num_rows(),
+							"crsPositions"=>$key->position
 						);
 			}
 
@@ -170,6 +179,23 @@ class AdminModel extends CI_model
 		}
 
 		return $data;
+	}
+
+	public function getCrsByPosition()
+	{
+		$this->db->order_by("position","ASC");
+		$get = $this->db->get("courses");
+		if($get->num_rows()==0)
+		{
+			$res = array();
+		}
+		else
+		{
+			$res = $get->result();
+
+		}
+
+		return $res;
 	}
 
 	public function getCourseById($id)
@@ -249,7 +275,7 @@ class AdminModel extends CI_model
 		$this->db->where("crs_id",$crsId);
 		$getCrs = $this->db->get("courses")->row();
 		//get Videos
-		$this->db->where(["crs_id"=>$crsId,"chap_id"=>$id,"trash"=>0]);
+		$this->db->where(["chap_id"=>$id,"trash"=>0]);
 		$getVid = $this->db->get("chap_videos");
 		if($getVid->num_rows()==0)
 		{
@@ -361,7 +387,7 @@ class AdminModel extends CI_model
 
 	public function getVidById($vidId)
 	{
-		$this->db->where("vid_id",$vidId);
+		$this->db->where(["vid_id"=>$vidId, "trash"=>0]);
 		$get = $this->db->get("chap_videos");
 		if($get->num_rows()==0)
 		{
@@ -372,7 +398,7 @@ class AdminModel extends CI_model
 			$rowVid = $get->row();
 			$crsId = $rowVid->crs_id;
 			$chapId = $rowVid->chap_id;
-			$this->db->where(["crs_id"=>$crsId,"chap_id"=>$chapId]);
+			$this->db->where(["chap_id"=>$chapId,"trash"=>0]);
 			$getVid = $this->db->get("chap_videos");
 			
 				$resVid = $getVid->result();
@@ -540,7 +566,7 @@ class AdminModel extends CI_model
 										"ip"=>@$key->ip,
 										"date"=>@$key->date,
 										"watch_time"=>@$times,
-										"level"=>$getChap->chap_name,
+										"level"=>@$getChap->chap_name,
 										"course"=>@$getCrs->course_name,
 										"title" =>@$getRow->title,
 										"email"=>@$getUser->email,
@@ -565,10 +591,10 @@ class AdminModel extends CI_model
 			foreach ($res as $key) {
 				$data[] = array
 								(
-									"name"=>$key->name,
-									"email"=>$key->email,
-									"mobile"=>$key->mobile,
-									"user_id"=>$key->id
+									"name"=>@$key->name,
+									"email"=>@$key->email,
+									"mobile"=>@$key->mobile,
+									"user_id"=>@$key->id
 								);
 			}
 		}
@@ -591,22 +617,27 @@ class AdminModel extends CI_model
 				$date = date_format($dt,"F")." ".date_format($dt,"d").", ".date_format($dt,"Y");
 				if($key->plan == "basic")
 				{
-					$id = $key->cat_id;
+					//$id = $key->cat_id;
+					$expls = explode(",", $key->cat_id);
+					foreach ($expls as $id) {
+						
+					
 					$this->db->where("vid_id",$id);
 					$getVid = $this->db->get("chap_videos")->row(); 
 
-					$this->db->where("crs_id",$getVid->crs_id);
+					$this->db->where("crs_id",@$getVid->crs_id);
 					$getCrs = $this->db->get("courses")->row();
 
-					$this->db->where("id",$getVid->chap_id);
+					$this->db->where("id",@$getVid->chap_id);
 					$getChap = $this->db->get("chapters")->row();
 
-					$purchesed = "Single Video (".$getCrs->course_name." -> ".$getChap->chap_name.")";
+					$purchesed = "Single Video (".@$getCrs->course_name." -> ".@$getChap->chap_name.")";
 					$crs_lvl = array();
+					$vidsNewbasic = [];
 					$this->db->where("vid_id",$id);
 					$getcpVid = $this->db->get("chap_videos")->result();
 							foreach ($getcpVid as $keyvd) {
-								$this->db->where("vid_id",$keyvd->vid_id);
+								$this->db->where("vid_id",@$keyvd->vid_id);
 								$this->db->select_sum("watch_time");
 								$wtch = $this->db->get("video_watch_analysis")->row();
 								if($wtch->watch_time >=3600)
@@ -623,17 +654,18 @@ class AdminModel extends CI_model
 								}
 								$vidsNewbasic[] = array
 												(
-													"title"=>$keyvd->title,
-													"thumb"=>$keyvd->thumb,
-													"vid_id"=>$keyvd->vid_id,
-													"watch_time"=>$times
+													"title"=>@$keyvd->title,
+													"thumb"=>@$keyvd->thumb,
+													"vid_id"=>@$keyvd->vid_id,
+													"watch_time"=>@$times
 												); 
 							}
+						}
 					$vidsNew = array();
 				}
-				elseif($key->plan == "level_plan")
+				elseif($key->plan == "level")
 				{
-					$id = $key->plan_id;
+					$id = $key->cat_id;
 					$this->db->where("id",$id);
 					$getChap = $this->db->get("chapters")->row();
 					$this->db->where("crs_id",@$getChap->crs_id);
@@ -643,7 +675,7 @@ class AdminModel extends CI_model
 					$this->db->where("chap_id",@$getChap->id);
 					$getcpVid = $this->db->get("chap_videos")->result();
 							foreach ($getcpVid as $keyvd) {
-								$this->db->where("vid_id",$keyvd->vid_id);
+								$this->db->where("vid_id",@$keyvd->vid_id);
 								$this->db->select_sum("watch_time");
 								$wtch = $this->db->get("video_watch_analysis")->row();
 								if($wtch->watch_time >=3600)
@@ -660,27 +692,29 @@ class AdminModel extends CI_model
 								}
 								$vidsNew[] = array
 												(
-													"title"=>$keyvd->title,
-													"thumb"=>$keyvd->thumb,
-													"vid_id"=>$keyvd->vid_id,
-													"watch_time"=>$times
+													"title"=>@$keyvd->title,
+													"thumb"=>@$keyvd->thumb,
+													"vid_id"=>@$keyvd->vid_id,
+													"watch_time"=>@$times
 												); 
 							}
 					$crs_lvl = array();
 					$vidsNewbasic = array();
 
 				}
-				elseif($key->plan == "course_plan")
+				elseif($key->plan == "cours")
 				{
-					$id = $key->plan_id;
+					$id = $key->cat_id;
 					$this->db->where("crs_id",$id);
 					$getCrs = $this->db->get("courses")->row();
 					$purchesed = @$getCrs->course_name;
 
 					$this->db->where("crs_id",@$getCrs->crs_id);
 					$getChap = $this->db->get("chapters")->result();
+					$crs_lvl = [];
 						foreach ($getChap as $keycp) {
 							$this->db->where("chap_id",$keycp->id);
+							$vids = [];
 							$getcpVid = $this->db->get("chap_videos")->result();
 							foreach ($getcpVid as $keyvd) {
 								$this->db->where("vid_id",$keyvd->vid_id);
@@ -720,14 +754,14 @@ class AdminModel extends CI_model
 				}
 				$data[] = array
 								(
-									"date"=>$date,
-									"order_id"=>$key->order_id,
-									"purchesed"=>$purchesed,
-									"crs_lvl"=>$crs_lvl,
-									"txnId"=>$key->txn_id,
-									"status"=>$key->payment_status,
-									"snglVids"=>$vidsNew,
-									"basic_vid"=>$vidsNewbasic
+									"date"=>@$date,
+									"order_id"=>@$key->order_id,
+									"purchesed"=>@$purchesed,
+									"crs_lvl"=>@$crs_lvl,
+									"txnId"=>@$key->txn_id,
+									"status"=>@$key->payment_status,
+									"snglVids"=>@$vidsNew,
+									"basic_vid"=>@$vidsNewbasic
 								);
 			}
 		}
@@ -925,6 +959,7 @@ class AdminModel extends CI_model
 				if($key->plan =="basic")
 				{
 					$expl = explode(",", $key->cat_id);
+					$course = [];
 					foreach($expl as $kk)
 					{
 						$this->db->where("vid_id",$kk);
@@ -945,13 +980,13 @@ class AdminModel extends CI_model
 
 					$this->db->where("crs_id",$crs->crs_id);
 					$crss = $this->db->get("courses")->row();
-					$course[] = $crs->chap_name." (".$crss->course_name.")";
+					$course = $crs->chap_name." (".$crss->course_name.")";
 				}
 				elseif($key->plan =="cours")
 				{
 					$this->db->where("crs_id",$key->cat_id);
 					$crs = $this->db->get("courses")->row();
-					$course = $crss->course_name;
+					$course = @$crss->course_name;
 				}
 				else
 				{
@@ -1125,6 +1160,7 @@ class AdminModel extends CI_model
 
 	public function getCoupons()
 	{
+		$this->db->where(["status"=>1]);
 		$get = $this->db->get("coupons");
 		if($get->num_rows()== 0)
 		{
@@ -1159,6 +1195,175 @@ class AdminModel extends CI_model
 						"gstin"=>$get->gstin,
 						"percents"=>$get->percents
 					);
+		return $data;
+	}
+
+	public function uplTeaser($id,$video_name,$fileName)
+	{
+		$data = array();
+		$this->db->where("crs_id",$id);
+		$getTsr = $this->db->get("teaser_videos");
+		if($getTsr->num_rows() > 0)
+		{
+			$this->db->where("crs_id",$id);
+			$this->db->update("teaser_videos",["thumb"=>$fileName,"vid_file"=>$video_name]);
+			$return = "updt";
+		}
+		else
+		{
+			$data = array
+						(
+							"crs_id"=>$id,
+							"thumb"=>$fileName,
+							"vid_file"=>$video_name
+						);
+			$this->db->insert("teaser_videos",$data);
+			$return = "insrt";
+		}
+
+		return $return;
+	}
+
+	public function getTeaserVideo($crs_id)
+	{
+		$this->db->where("crs_id",$crs_id);
+		$getTsr = $this->db->get("teaser_videos");
+		if($getTsr->num_rows()==0)
+		{
+			$data = array();
+		}
+		else
+		{
+			$row = $getTsr->row();
+			$data = array
+							(
+								"crs_id"=>$row->crs_id,
+								"thumb"=>$row->thumb,
+								"vid_file"=>$row->vid_file
+							);
+		}
+
+		return $data;
+	}
+
+	public function dashboardData()
+	{
+		$this->db->order_by("position","ASC");
+		$getCrs = $this->db->get("courses");
+		if($getCrs->num_rows()==0)
+		{
+			$crsData = array();
+		}
+		else
+		{
+			$crsar = $getCrs->result();
+			foreach ($crsar as $keyCrs) {
+				$this->db->where("crs_id",$keyCrs->crs_id);
+				$totLvl = $this->db->get("chapters")->num_rows();
+
+				$this->db->where("crs_id",$keyCrs->crs_id);
+				$totVids = $this->db->get("chap_videos")->num_rows();
+
+				$crsData[] = array
+									(
+										"course_name"=>$keyCrs->course_name,
+										"totVids"=>$totVids,
+										"totLvl"=>$totLvl
+									);
+			}
+		}
+
+		$get = $this->db->get("users_profile");
+		if($get->num_rows()==0)
+		{
+			$usrData = array();
+		}
+		else
+		{
+			$res = $get->result();
+			foreach ($res as $key) {
+				$usrData[] = array
+								(
+									"name"=>$key->name,
+									"email"=>$key->email,
+									"mobile"=>$key->mobile,
+									"user_id"=>$key->id
+								);
+			}
+		}
+
+		$this->db->select("vid_id");
+		$this->db->distinct();
+		$get = $this->db->get("video_watch_analysis");
+		if($get->num_rows()==0)
+		{
+			$allData[] = array();
+		}
+		else
+		{
+			$res = $get->result();
+			foreach ($res as $key) {
+				$this->db->where("vid_id",$key->vid_id);
+				$this->db->select_sum("watch_time");
+				$getVid = $this->db->get("video_watch_analysis")->row();
+				if($getVid->watch_time >=3600)
+				{
+					$times = round($getVid->watch_time / 3600)." Hours";
+				}
+				elseif($getVid->watch_time >=60)
+				{
+					$times = round($getVid->watch_time / 60)." Minutes";
+				}
+				else
+				{
+					$times = $getVid->watch_time." Seconds";
+				}
+				$this->db->where("vid_id",$key->vid_id);
+				$rro = $this->db->get("chap_videos");
+				if(!$rro->num_rows()==0)
+				{
+					$getRow = $rro->row();
+					$title = @$getRow->title;
+
+					$this->db->where("crs_id",$getRow->crs_id);
+					$getCrs = $this->db->get("courses")->row();
+					$course_name = @$getCrs->course_name;
+
+					$this->db->where("id",$getRow->chap_id);
+					$getChap = $this->db->get("chapters")->row();
+					$chap_name = @$getChap->chap_name;
+				}
+				else
+				{
+					$course_name="";
+					$chap_name = "";
+					$title = "";
+				}
+				$allData[] = array
+									(
+										"vid_id"=>@$key->vid_id,
+										"watch_time"=>@$times,
+										"course_name"=>@$course_name,
+										"chapName"=>@$chap_name,
+										"videoTitle"=>@$title
+									);
+			}
+
+				
+		
+
+
+		
+
+		$data = array
+					(
+						"crsData"=>@$crsData,
+						"usrData"=>@$usrData,
+						"allData"=>@$allData
+					);
+				}
+
+
 		return $data;
 	}
 }

@@ -44,8 +44,8 @@
 								<?php if(!$this->uri->segment(4)=="edit"): ?>
 									<form action="<?= base_url('admin_panel/AddCourse/addCrs'); ?>" method="post">
 										<div class="form-group">
-											<label>Course Name</label>
-											<input type="text" name="course_name" class="form-control" required="required">
+											<label>Course Name</label> *<small class="text-danger">No Special Characters!</small>
+											<input type="text" name="course_name" id="input" class="form-control" required="required" pattern="[^-,!@#$%^&*()]+"  >
 										</div>
 										<div class="form-group">
 											<label>Course Description</label>
@@ -59,8 +59,8 @@
 								<?php if(empty($data)){ echo "Invalid Course!";} else{ ?>
 									<form action="<?= base_url('admin_panel/AddCourse/editCrs/'.$data['crsId']); ?>" method="post">
 										<div class="form-group">
-											<label>Course Name</label>
-											<input type="text" name="course_name" class="form-control" required="required" value="<?= $data['course_name']; ?>">
+											<label>Course Name</label> *<small class="text-danger">No Special Characters!</small>
+											<input type="text" name="course_name" class="form-control" required="required" value="<?= $data['course_name']; ?>" pattern="[^,!@#$%^&*()]+" >
 										</div>
 										<div class="form-group">
 											<label>Course Description</label>
@@ -88,5 +88,6 @@
 		<?php include("inc/rightmenu.php"); ?>
 		<?php include("inc/footer.php"); ?>
 		<?php include("inc/dash_js.php"); ?>
+		
 	</body>
 </html>

@@ -36,7 +36,7 @@ class AddCourse extends CI_controller
 	{
 		$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
 		$crsId =  substr(str_shuffle($permitted_chars), 0, 10);
-		$course_name = $this->input->post("course_name");
+		$course_name = htmlentities($this->input->post("course_name"));
 		$descr = htmlentities($this->input->post("course_desc"));
 		$setCourse = $this->AdminModel->setCourse($crsId,$course_name,$descr);
 		if($setCourse == "succ")
@@ -52,7 +52,7 @@ class AddCourse extends CI_controller
 
 	public function editCrs($id)
 	{
-		$course_name = $this->input->post("course_name");
+		$course_name = htmlentities($this->input->post("course_name"));
 		$descr = htmlentities($this->input->post("course_desc"));
 		$updtCourse = $this->AdminModel->updtCourse($id,$course_name,$descr);
 

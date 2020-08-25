@@ -28,6 +28,16 @@ $(function(e) {
 			lengthMenu: '_MENU_',
 		}
 	});
+	$('#example33').DataTable({
+		responsive: true,
+		paging:   false,
+        
+		language: {
+			searchPlaceholder: 'Search...',
+			sSearch: '',
+			lengthMenu: '_MENU_',
+		}
+	});
 	var table = $('#example-delete').DataTable({
 		responsive: true,
 		language: {

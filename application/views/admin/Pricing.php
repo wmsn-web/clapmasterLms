@@ -40,7 +40,7 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-								<table class="table table-bordered" id="example2">
+								<table class="table table-bordered" id="example33">
 									<thead>
 										<tr>
 											<th>SL</th>

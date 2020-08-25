@@ -1,3 +1,4 @@
+<?php $aws_server = $this->SiteModel->aws_server(); ?>
 <!doctype html>
 <html lang="en" dir="ltr">
 	<head>
@@ -36,20 +37,16 @@
 								<div class="row">
 									<div class="col-md-8 seperator">
 										<div class="playBox">
-											<h3><?= $data['playTitle']; ?></h3><?= $data['playVid']; ?>
+											<h3><?= $data['playTitle']; ?></h3>
 											<?php if($data['video_type'] == "file"){ ?>
-												<video preload="false" autoplay  muted controls="controls">
-  <!-- Safari -->
-  <source
-    src="https://drive.google.com/uc?export=download&amp;id=1Ywiue-Kofck72OR_KdohOD-eISwKUpSH"
-    type="video/mp4"
-  />
-  <!-- Chrome and FF -->
-  <source
-    src="https://drive.google.com/uc?export=download&amp;id=1Ywiue-Kofck72OR_KdohOD-eISwKUpSH"
-    type="video/webm"
-  />
-</video>
+												<video preload="false" autoplay  muted controls="controls" width="100%">
+													  <source
+													    src="<?= $aws_server['serverUrl'].$aws_server['folders'].$data['playVid']; ?>"
+													    type="video/mp4"
+													  />
+													</video>
+													<b>Edit Video File Name</b><br>
+												<input type="text" id="vid_name" value="<?= @$data['playVid']; ?>" class="b-brd"><i class="fas fa-pen"></i>
 											<?php }else{  ?>
 												<iframe width="100%" height="315"
 												src="https://www.youtube.com/embed/<?= $data['video_link']; ?>?rel=0" allowfullscreen>
@@ -57,6 +54,8 @@
 											<?php } ?>
 											<div class="descr">
 												<p><?= html_entity_decode($data['playDescr']); ?></p>
+												
+
 											</div>
 										</div>
 									</div>
@@ -86,7 +85,7 @@
 													</div>
 													<div class="vidText">
 														<span class="cls">
-															<a class="text-danger" href="<?= base_url('admin_panel/ChapterContent/delVid/'.$keyvid['id'].'/'.$data['chapId']); ?>">
+															<a onclick="return confirm('Delete This Video ?');" class="text-danger" href="<?= base_url('admin_panel/ChapterContent/delVid/'.$keyvid['id'].'/'.$data['chapId']); ?>">
 																<i class="fas fa-times"></i>
 															</a>
 															</span>
@@ -127,6 +126,22 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".flashd").fadeOut(5000);
+
+				$("#vid_name").blur(function(){
+					var vid_name = $("#vid_name").val();
+					var vid_id = "<?= $this->uri->segment(4); ?>";
+					$.post("<?= base_url('admin_panel/ChapterContent/EditVidFile'); ?>",
+					{
+						vid_id: vid_id,
+						vid_name: vid_name
+					},
+					function(response,status)
+					{
+						alert(response);
+					}
+					)
+					
+				})
 			});
 		</script>
 	</body>

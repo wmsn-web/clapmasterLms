@@ -1,8 +1,8 @@
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name=description content="Discription Here">
-    <meta name=author content="Alpha-Design">
-    <link rel="icon" href="<?= base_url('assets/img/smallLogo.png'); ?>" type="image/png">
+    <meta name=author content="WEB-MARKETING SOLUTIONS NETWORK--- SANJAY NATTA">
+    <link rel="icon" href="<?= base_url('assets/img/fav.png'); ?>" type="image/png">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.v4.3.1.min.css'); ?>">
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/owl.theme.default.css'); ?>">
     <!-- Animated CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/animate.css'); ?>">
+    
     <!-- Main CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/home-2.css'); ?>">
@@ -31,3 +32,4 @@
         <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/rating/themes/css-stars.css">
         <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/rating/themes/bootstrap-stars.css">
         <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/rating/themes/fontawesome-stars-o.css">
+        <script src="<?= base_url('assets/js/sweat_alert.js'); ?>"></script>

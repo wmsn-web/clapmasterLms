@@ -44,9 +44,9 @@
                 </div> <!-- /.footerTopContetn -->
                 <div class="footerBottom">
                     <div class="subscrib">
-                        Sign up for Master Clap Emails 
-                        <form action="#" class="subscribForm">
-                            <input type="email" placeholder="Email Address">
+                        Subscribe Your Email 
+                        <form action="<?= base_url('Home/Subscribe'); ?>" method="post" class="subscribForm">
+                            <input type="email" name="email" placeholder="Email Address">
                             <button type="submit"><i class="fas fa-caret-square-right"></i></button>
                         </form>
                     </div> <!-- /.subscrib -->
@@ -59,11 +59,12 @@
 "></i></a></li>
                         <li><a target="_blank" href="https://in.pinterest.com/masterclap/"><i class="fab fa-pinterest-square"></i></a></li>
                     </ul>
-                    <a href="#" class="donloadApp"><img src="<?= base_url(); ?>assets/img/play.png" alt=""></a>
+                    
                 </div> <!-- /.footerBottom -->
                 <div class="copyright">
-                    <img src="<?= base_url(); ?>assets/img/logo.jpg" alt="">
-                    <p>copyright &copy; 2020 master Clap India, Inc. All rights reserved. Terms of Use | Privacy Policy</p>
+                    <a href="<?= base_url(); ?>">
+                    <img src="<?= base_url(); ?>assets/img/logo.jpg" alt=""></a>
+                    <p>copyright &copy; 2020 Master Clap India, Inc. All rights reserved. Terms of Use | Privacy Policy</p>
                 </div>
             </div> <!-- /.container -->
 

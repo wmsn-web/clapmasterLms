@@ -28,8 +28,7 @@
 							<li><a class="slide-item" href="<?= base_url('admin_panel/AddCourse'); ?>">Add Courses</a></li>
 							<li><a class="slide-item" href="<?= base_url('admin_panel/AllCourses'); ?>">View All Courses</a></li>
 							<li><a class="slide-item" href="<?= base_url('admin_panel/MoreAboutCourses'); ?>">More About Course</a></li>
-							
-							
+							<li><a class="slide-item" href="<?= base_url('admin_panel/CoursePosition'); ?>">Course Position</a></li>
 						</ul>
 					</li>
 					

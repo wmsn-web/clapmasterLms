@@ -34,6 +34,7 @@ class SiteModel extends CI_model
 	public function getCourse()
 	{
 		$this->db->where("stat",1);
+		$this->db->order_by("position","ASC");
 		$getCat = $this->db->get("courses"); 
 		if($getCat->num_rows()==0)
 		{
@@ -70,7 +71,8 @@ class SiteModel extends CI_model
 
 	public function getCourseOne()
 	{
-		$this->db->order_by("id","ASC");
+		$this->db->where("stat",1);
+		$this->db->order_by("position","ASC");
 		$getCat = $this->db->get("courses");
 		if($getCat->num_rows()==0)
 		{
@@ -419,6 +421,7 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 								"date"=>date('Y-m-d H:i:s')
 							);
 				$dd = $this->db->insert("cart",$dataNew);
+				if($plan == )
 				$return = "succ";
 			}
 	}
@@ -512,6 +515,73 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 									);
 			}
 		}
+		return $cartData;
+		
+	}
+
+		public function getMyRenewCart($userId)
+	{
+		$this->db->where(["userid"=>$userId,"payment_status"=>null]);
+		$this->db->delete("transactions");
+
+		$this->db->where(["userid"=>$userId]);
+		$this->db->update("transactions_renew",["order_id"=>"ord_".mt_rand(00000000,99999999)]);
+		$this->db->where(["userid"=>$userId]);
+		$this->db->order_by("id","ASC");
+		$get = $this->db->get("transactions_renew");
+		if($get->num_rows()==0)
+		{
+			$cartData = array();
+		}
+		else
+		{
+			$res = $get->result();
+			foreach ($res as $key) {
+
+				if($key->category == "basic")
+				{
+					$tag = "";
+					$expl = explode(",", $key->cat_id);
+					$Level = "";
+					$items = [];
+					foreach ($expl as $keyxpl) {
+						$this->db->where("vid_id",$keyxpl);
+						$gtvd = $this->db->get("chap_videos")->row();
+						$this->db->where("id",$gtvd->chap_id);
+						$gtcp = $this->db->get("chapters")->row();
+						$items[] = array
+									(
+										"title"=>$gtvd->title,
+										"vid_id"=>$key->cat_id,
+										"chapName"=> "->".$gtcp->chap_name." "
+									);
+					}
+				}
+				elseif($key->category == "level")
+				{
+					$tag = "(All Videos)";
+					$items = array();
+					$Level = "->".$key->chap_name;
+				}
+				else
+				{
+					$tag = "(All Videos)";
+					$items = array();
+					$Level = " -> All Levels";
+				}
+				$cartData[] = array
+									(
+										"order_id"=>$key->order_id,
+										"category"=>$key->category,
+										"items"=>$items,
+										"price"=>$key->price,
+										"id"=>$key->id,
+										"course"=>$key->course_name,
+										"tag"=>$tag,
+										"level"=>$Level
+									);
+			}
+		}
 
 		return $cartData;
 	}
@@ -528,9 +598,22 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 		$data = array("totprice"=>$getTot->price,"discount"=>@$rrow->discount);
 		return $data;
 	}
+	public function cartRenewBalance($userId)
+	{
+		$this->db->where("userid",$userId);
+		$this->db->select_sum("price");
+		$getTot = $this->db->get("transactions_renew")->row();
+
+		$this->db->where("userid",$userId);
+		$rrow = $this->db->get("transactions_renew")->row();
+
+		$data = array("totprice"=>$getTot->price,"discount"=>@$rrow->discount);
+		return $data;
+	}
 
 	public function txDetails()
 	{
+		$this->db->order_by("id","ASC");
 		$get = $this->db->get("tax_setup")->row();
 		$tx = $get->percents;
 		$tax = $tx/100;
@@ -557,8 +640,10 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 			{
 				$disc = "perc_".$row->discount/100;
 			}
+			$this->db->where(["coupon_code"=>$coupon]);
+			$this->db->update("coupons",["status"=>0]);
 			$this->db->where(["userid"=>$userId]);
-			$this->db->update("cart",["discount"=>$disc]);
+			$this->db->update("cart",["discount"=>$disc,"coupon_code"=>$coupon]);
 			$data = array("disc"=>$disc,);
 		}
 
@@ -596,6 +681,16 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 		return $cartData;
 	}
 
+	public function getAllCartDataToarrayRenew($userId,$gross,$tx)
+	{
+		$this->db->where(["userid"=>$userId]);
+		$this->db->update("transactions_renew",["tax"=>$tx,"gross_price"=>$gross]);
+		
+
+		return 1;
+	}
+
+
 	public function getCartToPay($userId)
 	{
 		$this->db->where(["userid"=>$userId]);
@@ -607,8 +702,20 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 
 	}
 
-	public function updtTransactions($productinfo,$txnid,$status)
+	public function getCartToPayRenew($userId)
 	{
+		$this->db->where(["userid"=>$userId]);
+		$get = $this->db->get("transactions_renew");
+		$row = $get->row();
+		$ctnm = $row->category."_plan";
+
+		return $row;
+
+	}
+
+	public function updtTransactions($productinfo,$txnid,$status) 
+	{
+
 		$data = array
 					(
 						"txn_id"=>$txnid,
@@ -619,6 +726,48 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 		$this->db->update("transactions",$data);
 		$this->db->where(["order_id"=>$productinfo]);
 		$this->db->delete("cart");	
+
+		$this->db->where(["order_id"=>$productinfo]);
+		$trans = $this->db->get("transactions")->row();
+		if($trans->notes == "Renew")
+		{
+			if($trans->plan == "basic")
+			{
+				$expl = explode(",", $trans->cat_id);
+				foreach ($expl as $keyVd ) {
+					$this->db->where(["vid_id"=>$keyVd,"user_id"=>$trans->userid]);
+					$this->db->delete("video_views");
+				}
+			}
+		}
+		return "succ";
+	}
+
+	public function updtTransactionsRenew($productinfo,$txnid,$status) 
+	{
+
+		$data = array
+					(
+						"txn_id"=>$txnid,
+						"payment_status"=>$status,
+						"date"=> date("Y-m-d H:i:s")
+					);
+		$this->db->where(["order_id"=>$productinfo]);
+		$this->db->update("transactions_renew",$data);
+		
+		$this->db->where(["order_id"=>$productinfo]);
+		$trans = $this->db->get("transactions_renew")->row();
+		if($trans->notes == "Renew")
+		{
+			if($trans->plan == "basic")
+			{
+				$expl = explode(",", $trans->cat_id);
+				foreach ($expl as $keyVd ) {
+					$this->db->where(["vid_id"=>$keyVd,"user_id"=>$trans->userid]);
+					$this->db->delete("video_views");
+				}
+			}
+		}
 		return "succ";
 	}
 
@@ -892,7 +1041,7 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 	}
 	
 
-	public function getMainVideo($id,$userId)
+	public function getMainVideo($id,$userId) 
 	{
 		$this->db->where("vid_id",$id);
 		$get = $this->db->get("chap_videos");
@@ -903,12 +1052,28 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 		else
 		{
 			$row = $get->row();
+			$this->db->where("crs_id",$row->crs_id);
+			$getCrss = $this->db->get("courses")->row();
+
+			$this->db->where("id",$row->chap_id);
+			$getChaps = $this->db->get("chapters")->row();
+
+			$price = $getChaps->each_video_price;
+			$discount = $getChaps->each_video_discount;
+
+			$per = $discount/100;
+			$disc = $price*$per;
+
+			$price_now = $price - $disc;
+			
+
 			$this->db->where(["user_id"=>$userId,"vid_id"=>$id]);
 		$get = $this->db->get("video_views")->num_rows();
 			if($get >=5)
 			{
 				$video_file = "none.mp4";
-				$msg = "<b style='color:#f00'>You have Completed this video tutorial.</b>";
+				$msg = "<b style='color:#f00'>You have Completed this video tutorial.</b>
+				<a href='".base_url('SearchResult/renn/'.$id.'/'.$price_now.'/'.$getCrss->course_name.'/'.$getChaps->chap_name)."'><span class='badge badge-warning'>Renew Now</span></a>";
 				
 			}
 			else
@@ -1437,7 +1602,7 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 	public function getFooterCourse()
 	{
 		$this->db->where("stat",1);
-		$this->db->order_by("id","DESC");
+		$this->db->order_by("position","ASC");
 		$getCat = $this->db->get("courses"); 
 		if($getCat->num_rows()==0)
 		{
@@ -1495,6 +1660,11 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 								);
 			}
 		}
+		$price = $get2->each_video_price;
+		$disc = $get2->each_video_discount;
+		$per = $disc/100;
+		$discNow = $price*$per;
+		$price_now = $price - $discNow;
 		$mnVid = array
 					(
 						"title"=>$get->title,
@@ -1505,6 +1675,8 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 						"chap_name"=>$get2->chap_name,
 						"descr"=>$get->descr,
 						"price"=>$get2->each_video_price,
+						"disc"=>$get2->each_video_discount,
+						"price_now"=>$price_now,
 						"thumb"=>$get2->thumb,
 						"simData"=>$simData
 					);
@@ -1521,6 +1693,17 @@ public function addCart($userId,$catValue,$orderid,$plan,$category,$cat_value,$p
 			
 			$data[] = array("state"=>$key->states_name);
 		}
+		return $data;
+	}
+
+	public function aws_server()
+	{
+		$serv = $this->db->get("aws_setup")->row();
+		$data = array
+					(
+						"serverUrl"=>$serv->server_url,
+						"folders"=>$serv->view_folder
+					);
 		return $data;
 	}
 }

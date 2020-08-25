@@ -29,8 +29,34 @@ class MyCart extends CI_controller
 
 	public function delCart($id)
 	{
-		$this->db->where("id",$id);
-		$this->db->delete("cart");
+		$userId = $this->session->userdata("ClientId");
+		$this->db->where("userid",$userId);
+		$gt = $this->db->get("cart");
+		if($gt->num_rows()==1)
+		{
+			$row = $gt->row();
+			$coupon = $row->coupon_code;
+			$this->session->set_userdata("Coupon",$coupon);
+
+			$this->db->where("coupon_code",$coupon);
+			$this->db->update("coupons",["status"=>1]);
+			$this->db->where("id",$id);
+			$this->db->delete("cart");
+		}
+		elseif($gt->num_rows()==0)
+		{
+			$coupon = $this->session->userdata("Coupon");
+			$this->db->where("coupon_code",$coupon);
+			$this->db->update("coupons",["status"=>1]);
+			$this->db->where("id",$id);
+			$this->db->delete("cart");
+		}
+		else
+		{
+			$this->db->where("id",$id);
+			$this->db->delete("cart");
+		}
+
 		$this->session->set_flashdata("Feed","Item Removed from Cart");
 		return redirect("MyCart");
 	}
@@ -38,7 +64,7 @@ class MyCart extends CI_controller
 	{
 		$userId = $this->session->userdata("ClientId");
 		$coupon = $this->input->post("coupon");
-		$getCoupons = $this->SiteModel->getCoupons($coupon,$userId);
+		$getCoupons = $this->SiteModel->getCoupons($coupon,$userId); 
 		if(!empty($getCoupons))
 		{
 			echo json_encode($getCoupons);
@@ -56,6 +82,17 @@ class MyCart extends CI_controller
 		$gross = $this->uri->segment(3);
 		$getAllCartDataToarray = $this->SiteModel->getAllCartDataToarray($userId,$gross,$tx);
 		return redirect("PayNow/secure/");
+		//echo "<pre>";
+		//print_r($getAllCartDataToarray); 
+	}
+
+	public function processCheckOutRenew()
+	{
+		$userId = $this->session->userdata("ClientId");
+		$tx = $this->uri->segment(4);
+		$gross = $this->uri->segment(3);
+		$getAllCartDataToarray = $this->SiteModel->getAllCartDataToarrayRenew($userId,$gross,$tx);
+		return redirect("PayNow/renew/");
 		//echo "<pre>";
 		//print_r($getAllCartDataToarray); 
 	}

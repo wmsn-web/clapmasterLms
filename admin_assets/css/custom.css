@@ -702,6 +702,8 @@ input:checked + .slider:before {
 {
 	border:solid 1px #dfe6f5;
 }
+.b-brd { border-left: none; border-right: none; border-top: none; border-bottom: solid 1px #ccc }
+.b-brd:focus{outline: none;}
 
 
 

@@ -117,12 +117,7 @@ if($this->session->userdata("ClientId"))
                                 <span><i class="fas fa-angle-right"></i></span>
                             </a>
                         </div>
-                        <div class="col-sm-4 oth-menu">
-                            <a href="<?= base_url('Pages/Affiliate'); ?>" class="text-white">
-                                <i class="fas fa-users" aria-hidden="true"></i> Affiliate
-                                <span><i class="fas fa-angle-right"></i></span>
-                            </a>
-                        </div>
+                        
                         <div class="col-sm-4 oth-menu">
                             <a href="<?= base_url('Pages/ContactUs'); ?>" class="text-white">
                                 <i class="fas fa-envelope" aria-hidden="true"></i> Contact Us

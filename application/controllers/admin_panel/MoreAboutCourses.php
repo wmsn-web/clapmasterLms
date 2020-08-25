@@ -34,8 +34,9 @@ class MoreAboutCourses extends CI_controller
 				$getWhatLearn = $this->AdminModel->getWhatLearn($crs_id);
 				$getFaq	= $this->AdminModel->getFaq($crs_id);
 				$inclData = $this->AdminModel->inclData($crs_id);
+				$getTsr = $this->AdminModel->getTeaserVideo($crs_id);
 				//print_r($getFaq);
-			    $this->load->view("admin/MoreAboutCourses",["data"=>$getAllCourse,"wht"=>$getWhatLearn,"faq"=>$getFaq,"incl"=>$inclData]);
+			    $this->load->view("admin/MoreAboutCourses",["data"=>$getAllCourse,"wht"=>$getWhatLearn,"faq"=>$getFaq,"incl"=>$inclData,"getTsr"=>$getTsr]);
 			}
 		}else
 		{
@@ -114,5 +115,35 @@ class MoreAboutCourses extends CI_controller
 				$upl = $this->AdminModel->setCrsImg($crs_id,$thumbImg);
 				$this->session->set_flashdata("Feed","Course Image Updated");
 			return redirect('admin_panel/MoreAboutCourses/');
+	}
+
+	public function teaservid()
+	{
+		$id = $this->input->post("crs_id");
+		$video_name = $this->input->post("vidfile");
+		//Thumb Image Upload
+				$config['upload_path']          = './uploads/videos/';
+                $config['max_size'] = '*';
+				$config['allowed_types'] = '*'; # add video extenstion on here
+				$config['remove_spaces'] = TRUE;
+				$fileName = mt_rand(0000000, 9999999);
+				$config['file_name'] = $fileName;
+                
+                $this->load->library('upload', $config);
+
+                $this->upload->do_upload('thumbs');
+                $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
+						$thumbImg = $upload_data['file_name'];
+			$uplTeaser = $this->AdminModel->uplTeaser($id,$video_name,$fileName);
+			if($uplTeaser == "updt")
+			{
+				$this->session->set_flashdata("Feed","Teaser Video Updated Successfully");
+				return redirect("admin_panel/MoreAboutCourses/index/edit/".$id);
+			}
+			else
+			{
+				$this->session->set_flashdata("Feed","Teaser Video Added Successfully");
+				return redirect("admin_panel/MoreAboutCourses/index/edit/".$id);
+			}
 	}
 }

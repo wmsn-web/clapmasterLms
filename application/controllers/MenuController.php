@@ -8,10 +8,12 @@ class MenuController extends CI_controller
 	function __construct()
 	{
 		parent::__construct();
+        $this->load->model("SiteModel");
 	}
 
 	public function getVids()
 	{
+        $aws_server = $this->SiteModel->aws_server();
 		$crsId = $this->input->post("id");
 		$getDataMenu = $this->SiteModel->getDataMenu($crsId); ?> 
 
@@ -39,14 +41,15 @@ class MenuController extends CI_controller
 
     public function getPreview()
     {
+        $aws_server = $this->SiteModel->aws_server();
         $id = $this->input->post("id");
         $getPreviews = $this->SiteModel->getPreviews($id); ?>
 
                                 
                             <br><h3 class="text-white"><?= $getPreviews['course_name']; ?></h3><br>
-                            <?php if($getPreviews['previewData']['preview_type']=="files"){ ?>
+                            <?php if($getPreviews['previewData']['preview_type']=="file"){ ?>
                                 <video width="100%" poster="<?= base_url('uploads/videos/'.$getPreviews['previewData']['thumb']); ?>" controls>
-                                  <source src="<?= base_url('uploads/videos/'.$getPreviews['previewData']['preview']); ?>" type="video/mp4">
+                                  <source src="<?= $aws_server['serverUrl'].$aws_server['folders'].$getPreviews['previewData']['preview']; ?>" type="video/mp4">
                                   Your browser does not support the video tag.
                                 </video>
                             <?php }else{ ?>

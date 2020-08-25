@@ -29,8 +29,8 @@ class Users extends CI_controller
 		$getPurchsedData = $this->AdminModel->getPurchsedData($userId);
 		$getUsersById = $this->AdminModel->getUsersById($userId);
 		$getAnaly = $this->AdminModel->getAnaly($userId);
-		//$this->load->view("admin/userDetails",["prchsData"=>$getPurchsedData,"gtUser"=>$getUsersById]);
-		echo "<pre>";
-		print_r($getPurchsedData);
+		$this->load->view("admin/userDetails",["prchsData"=>$getPurchsedData,"gtUser"=>$getUsersById]);
+		//echo "<pre>";
+		//print_r($getPurchsedData);
 	}
 }

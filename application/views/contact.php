@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html lang="en">
   	<head>
-    	<title>Contact Us - Clap Master</title>
+    	<title>Contact Us - Master Clap</title>
     	<?php include('inc/layout.php'); ?> 
 	</head>
 	<body>
@@ -11,47 +11,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php include('inc/menu.php'); ?> 
 			<section class="hero_area themeColor">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                            <h5 class="text-white">Contact Person</h5>
-                            <span class="text-white">
-                                <b><i class="fa fa-user"></i> Name-</b> ANSH NAGPAL<br>
-                                <b><i class="fa fa-phone"></i> Contact no-</b> +91 9650 744 530<br>
-                                <b><i class="fa fa-envelope"></i> Email-</b> info@masterclap.in<br>
-                                <b><i class="fa fa-envelope"></i> Email-</b> masterclap@gmail.com<br>
-                                
-                            </span>                        
-                    </div>
-                    <div class="col-md-6">
-                        <h5>Send Your Query</h5>
-                        <p class="text-white">We're here to answer any questions you have about MasterClap or our courses.</p>
-                        
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="alrt">
-                                        <div id="alrt-msg" class="alert alert-success"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Full Name</label> <small id="msg1" class="text-danger"></small>
-                                        <input type="text" id="name" class="form-control danger">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email Address</label> <small id="msg2" class="text-danger"></small>
-                                        <input type="text" id="email" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Message</label> <small id="msg3" class="text-danger"></small>
-                                        <textarea id="msgs" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button id="snd" class="btn btn-dark">Send Query</button>
-                                        <img id="loder" src="<?= base_url('assets/img/loader.gif'); ?>" width="35">
+                <div class="bx-full bx-brd">
+                                    <div class="bx-content bx-white">
+                                      <div class="row">
+                                          <div class="col-md-5">
+                                              <h4 class="">Contact Person</h4>
+                                                <span class="">
+                                                    <b><i class="fa fa-user"></i> Name-</b> ANSH NAGPAL<br>
+                                                    <b><i class="fa fa-phone"></i> Contact no-</b> +91 9650 744 530<br>
+                                                    <b><i class="fa fa-envelope"></i> Email-</b> info@masterclap.in<br>
+                                                    <b><i class="fa fa-envelope"></i> Email-</b> masterclap.in@gmail.com<br>
+                                                </span> 
+                                                <img src="<?= base_url('assets/img/aboutImg.png'); ?>" class="img-responsive" />
+                                                <ul class="followContact">
+                        <li><a target="_blank" href="https://www.facebook.com/112535730511932/posts/118324056599766/?substory_index=0"><i class="fab fa-facebook"></i></a></li>
+                        <li><a target="_blank" href="https://www.linkedin.com/in/master-clap-6060311b1"><i class="fab fa-linkedin "></i></a></li>
+                        <li><a target="_blank" href="https://twitter.com/MasterClap1"><i class="fab fa-twitter"></i></a></li>
+                        <li><a target="_blank" href="https://www.instagram.com/masterclap.inc/"><i class="fab fa-instagram
+"></i></a></li>
+                        <li><a target="_blank" href="https://in.pinterest.com/masterclap/"><i class="fab fa-pinterest-square"></i></a></li>
+                    </ul> 
+                                          </div>
+                                          <div class="col-md-7">
+                                              <form action="<?= base_url('Home/sendContact'); ?>" method="post" class="border-form shaddow-form">
+                                                  <h4>Send Us your query</h4>
+                                                  <div class="form-group">
+                                                        <label>Full Name</label>
+                                                        <input type="text" name="name" class="form-control" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Email Address</label>
+                                                        <input type="text" name="email" class="form-control" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mobile Number</label>
+                                                        <input type="text" name="mobile" class="form-control" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Message</label>
+                                                        <textarea name="mssg" class="form-control" required="required" placeholder="Write your query"></textarea>
+                                                        <br>
+                                                        <button class="btn btn-primary">Send</button>
+                                                    </div>
+                                              </form>
+                                          </div>
+                                      </div>
                                     </div>
                                 </div>
-                            </div>
-                        
-                    </div>
-                </div>
             </div>
         </section>
         

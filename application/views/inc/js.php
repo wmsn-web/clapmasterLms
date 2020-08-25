@@ -24,6 +24,7 @@
         <!-- Rating js-->
         <script src="<?= base_url(); ?>assets/plugins/rating/jquery.rating-stars.js"></script>
         <script src="<?= base_url(); ?>assets/plugins/rating/jquery.barrating.js"></script>
+        
 
 	<!-- Custome -->
 	<script src="<?= base_url('assets/js/active.js'); ?>"></script>

@@ -2,7 +2,7 @@
 /**
  * 
  */
-class ChapterContent extends CI_controller 
+class ChapterContent extends CI_controller  
 {
 	
 	public function __construct()
@@ -127,6 +127,7 @@ class ChapterContent extends CI_controller
 	public function uplPreview()
 	{
 		$id = $this->input->post("id");
+		$video_name = $this->input->post("vidfile");
 		//Thumb Image Upload
 				$config['upload_path']          = './uploads/videos/';
                 $config['max_size'] = '*';
@@ -141,36 +142,9 @@ class ChapterContent extends CI_controller
                 $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
 						$thumbImg = $upload_data['file_name'];
 				
-
-
-
-
-                $configVideo['max_size'] = '*';
-				$configVideo['allowed_types'] = '*'; # add video extenstion on here
-				$configVideo['overwrite'] = TRUE;
-				$configVideo['remove_spaces'] = TRUE;
-				$configVideo['quality'] = '80%';
-				$video_name = mt_rand(0000000, 9999999);
-				$configVideo['file_name'] = $video_name;
-                
-                $this->load->library('upload', $configVideo);
-
-                if ( ! $this->upload->do_upload('vidfile'))
-                {
-                        $error = array('error' => $this->upload->display_errors());
-                        $echo = $this->session->set_flashdata("FL","Maximum size issue!");
-                        print_r($error);
-                        //return redirect("admin_panel/ChapterContent/stepNext/".$vidId);
-                }
-                else
-                {
-                        
-                        $upload_data2 = $this->upload->data();
-                        $video_name =$upload_data2['file_name'];
-                        $upl = $this->AdminModel->uploadpreviewFile($id,$video_name,$thumbImg);
+				$upl = $this->AdminModel->uploadpreviewFile($id,$video_name,$thumbImg);
                         $this->session->set_flashdata("Feed","Video Uploaded Successfully");
                         return redirect("admin_panel/ChapterContent/index/$id");
-                }
 	}
 
 	public function delVid($id)
@@ -232,5 +206,24 @@ class ChapterContent extends CI_controller
         return redirect("admin_panel/ChapterContent/index/$id");
 
 
+	}
+
+	public function EditVidFile()
+	{
+		echo "done";
+		$vid_id = $this->input->post("vid_id");
+		$vid_name = $this->input->post("vid_name");
+		$this->db->where("vid_id",$vid_id);
+		$this->db->update("chap_videos",["video_file"=>$vid_name]);
+
+	}
+
+	public function EditPreviewFile()
+	{
+		echo "done";
+		$chapId = $this->input->post("chapId");
+		$vid_name = $this->input->post("vid_name");
+		$this->db->where("id",$chapId);
+		$this->db->update("chapters",["preview"=>$vid_name]);
 	}
 }

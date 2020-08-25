@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                     <div class="col-md-2">
                         <div class="courses_offered">
-                            <h4>Courses Offered</h4>
+                            <h4>Level Offered</h4>
                             <?php if(!empty($menuData)){ ?>
                                 <?php foreach($menuData['chapData'] as $menu){ ?>
                                      <a id="chap_<?= $menu['id']; ?>" class="getChap" href="javascript:void(0)"><?= $menu['chapName']; ?><i class="fa fa-angle-right"></i></a>

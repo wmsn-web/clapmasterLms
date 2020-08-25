@@ -62,7 +62,7 @@
 															if($key['plan']=="basic"){
 															 foreach($key['course'] as $crs): echo $crs." | "; 
 															 endforeach;
-															}elseif($key['plan']=="level"){ ?>
+															}elseif($key['plan']=="level"){ ?> 
 															 	<?= $key['course'][0]; ?>
 															 <?php }else{ ?>
 															 	<?php print_r($key['course']); ?>

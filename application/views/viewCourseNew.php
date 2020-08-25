@@ -1,10 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$aws_server = $this->SiteModel->aws_server();
 ?><!doctype html>
 <html lang="en">
   	<head>
-    	<title>Course - Clap Master</title>
-    	<?php include('inc/layout.php'); ?> 
+    	<title>Course -Master Clap</title>
+    	<?php include('inc/layout.php'); ?>  
 	</head>
 	<body>
 		<div class="wrapers">
@@ -14,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row">
                     <div class="col-md-2">
                         <div class="courses_offered">
-                            <h4>Courses Offered</h4>
+                            <h4>Levels Offered</h4>
                             <?php if(!empty($menuData)){ ?>
                                 <?php foreach($menuData['chapData'] as $menu){ ?>
                                      <a id="chap_<?= $menu['id']; ?>" class="getChap" href="javascript:void(0)"><?= $menu['chapName']; ?><i class="fa fa-angle-right"></i></a>
@@ -28,9 +29,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="hero_middle">
                             <h4 class="text-white">Course Name: <?= $menuData['course_name']; ?> <span class="cpName"><?= $menuData['previewData']['chap_name']; ?></span></h4>
                             <div id="vidCntrl">
-                                <?php if($menuData['previewData']['preview_type'] == "files"){ ?>
-                                    <video autoplay="on" poster="<?= base_url('uploads/videos/'.$menuData['previewData']['thumb']); ?>" controls>
-                                        <source src="<?= base_url('uploads/videos/'.$menuData['previewData']['preview']); ?>"  type="video/mp4">
+                                <?php if($menuData['previewData']['preview_type'] == "file"){ ?>
+                                    <video autoplay="on" poster="<?= base_url('uploads/videos/'.$menuData['previewData']['thumb']); ?>" controlsList="nodownload" oncontextmenu="return false;" controls >
+                                        <source src="<?= $aws_server['serverUrl'].$aws_server['folders'].$menuData['previewData']['preview']; ?>"  type="video/mp4">
                                         Your browser does not support HTML video.
                                     </video>
                                 <?php }else{  ?>
@@ -47,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="fas fa-play"></i>
                                         </div>
                                         <span class="text-white"><?= $vidData['title']; ?>
-                                        <i title="<?= $vidData['descr']; ?>" class="fa fa-info-circle"></i></span>
+                                        </span>
                                     </div>
                                     <?php } ?>
                                 </div>
@@ -61,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <table class="priceTable prtable">
                                        <tr>
                                             <th style="width: 40%">
-                                                <label class="container">Basic Plan
+                                                <label class="container">Episodes
                                                   <input id="sng" type="radio" name="price" value="basic_<?= $menuData['previewData']['snglnowprice']; ?>">
                                                   <span class="checkmark"></span>
                                                 </label>
@@ -69,7 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th style="width: 48%">
                                                 <span><del id="snglprice">&#8377;<?= $menuData['previewData']['snglprice']; ?></del> <i id="cp1" class="fa fa-info-circle cp" aria-hidden="true"></i></span>
                                                 <div id="singl" class="info">
-                                                    Basic Plan: Allows to watch single video of this level.
+                                                    Episode Plan: Allows to watch single video of this level.
                                                 </div>
                                             </th>
                                             <th style="width: 12%">
@@ -130,23 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <h3 id="chapName"><?= $menuData['previewData']['chap_name']; ?></h3>
                             <p>Find your unique voice naturally, while having FUN doing it! A modern approach to singing
                                 lessons & vocal training.Find your unique voice naturally, while having FUN doing it!</p>
-                            <div class="author_details">
-                                <img src="<?= base_url(); ?>assets/img/author.png" alt="author">
-                                <h4><span>Faculty</span>Pritam Mandal</h4>
-                            </div>
-                            <div class="author_rating"><span class="best_seller">Bestseller</span>5.0
-                                <img src="<?= base_url(); ?>assets/img/filled_star.png" alt="">
-                                <img src="<?= base_url(); ?>assets/img/filled_star.png" alt="">
-                                <img src="<?= base_url(); ?>assets/img/filled_star.png" alt="">
-                                <img src="<?= base_url(); ?>assets/img/filled_star.png" alt="">
-                                <span>(2,758 ratings)</span>
-                                <span class="text-secondary">15,692 Student</span>
-                            </div>
-                            <div class="py-3">
-                                <a href="#">Whitelist <i class="ti-heart"></i></a>
-                                <a href="#">Share <i class="ti-share"></i></a>
-                                <a href="#">Gift the course</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -204,8 +189,104 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
         </section>
+        <section class="feedbackArea">
+            <div class="container">
+                <div class="feedbackContainer">
+                    <h2>Feedback</h2>
+                    <div class="row">
+                <?php 
+                    //$this->db->distinct();
+                    //$this->db->select("user_id");
+                    $crsId = $this->uri->segment(3);
+                    $this->db->where("crs_id",$crsId);
+                    $this->db->order_by("id","DESC");
+                    $getReviews = $this->db->get("video_likes");
+                    if($getReviews->num_rows()==0)
+                    {
+                        $dataReview = array();
+                    }
+                    else
+                    {
+                        $row = $getReviews->result();
+                        foreach ($row as $keyR) {
+                        $this->db->where("id",$keyR->user_id);
+                        $getUser = $this->db->get("users_profile")->row();
+                           $dataReview[] = array
+                                                (
+                                                    "user_id"=>$keyR->user_id,
+                                                    "name"=>$getUser->name,
+                                                    "comments"=>$keyR->comments,
+                                                    "dates"=>$keyR->date
+                                                );
+                        }
+                        
+                    }
+                ?>
+                <?php if(!empty($dataReview)){ ?>
+                    <?php foreach($dataReview as $rev){
+                        $expl = explode(" ",$rev['name']);
+                        $fl = substr(@$expl[0], 0,1);
+                        $ll = substr(@$expl[1], 0,1);
+                        $dt = date_create($rev['dates']);
+                        $newDate = date_format($dt,'F')." ".date_format($dt,'d').", ".date_format($dt,'Y');
+                     ?>
+                     <?php /*
+                    <div class="singleFeedbackBox">
+                        <div class="feedProfile">
+                            <div class="feedImgDiv"><?= strtoupper($fl.$ll); ?></div>
+                            <div class="feedUser">
+                                <a href="#" class="name"><?= $rev['name']; ?></a>
+                                <span><?= $newDate; ?></span>
+                            </div>
+                        </div> <!-- /.feedProfile -->
+                        <ul class="rating">
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                        </ul>
+                        <p><?= $rev['comments']; ?></p>
+                        <div class="likeFeed">
+                            
+                        </div>
+                    </div> <!-- /.singleFeedbackBox -->
+                     <!-- /.singleFeedbackBox -->
+                 
+                 */ ?>
+
+                 <div class="col-md-6 mb-3">
+                             <div class="card  ht-320">
+                                 <div class="card-body">
+                                     <div class="feedProfile">
+                                        <div class="feedImgDiv"><?= strtoupper($fl.$ll); ?></div>
+                                        <div class="feedUser">
+                                            <a href="#" class="name"><?= $rev['name']; ?></a>
+                                            <ul class="rating">
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                                <li><i class="fas fa-star"></i></li>
+                                            </ul>
+                                            <span><?= $newDate; ?></span>
+                                        </div>
+                                    </div> <!-- /.feedProfile -->
+                                    <p><?= $rev['comments']; ?></p>
+                                 </div>
+                             </div>
+                         </div>
+                 <?php } ?>
+                 <?php } ?>
+                     
+                        
+                     </div>
+                </div> <!-- /.feedbackContainer -->
+            </div>
+           
+        </section>
         <?php include("inc/popHandler.php"); ?>
-    <input type="" id="single_cat" name="single_cat" value="level_1_<?= $menuData['previewData']['chapId']; ?>">
+    <input type="hidden" id="single_cat" name="single_cat" value="level_1_<?= $menuData['previewData']['chapId']; ?>">
     <input type="hidden" id="orderid" name="orderid" value="<?= 'ord_'.mt_rand(00000000,99999999); ?>">
     <?php if($this->session->userdata("ClientId")){ ?>
         <input type="hidden" id="cartnum" value="<?= $getCart; ?>">
@@ -226,20 +307,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var ids = this.id;
                     var spl = ids.split("_");
                     var id = spl[1];
+                    
                     $.post("<?= base_url('Course/getChapdtls'); ?>",
                             {
                                 id: id
                             },
                             function(response,status)
                             {
+                                //alert(response);
                                 
                                 var obj = JSON.parse(response);
                                 var vidType = obj.previewData.preview_type;
                                 if(vidType == "file")
                                 {
                                     var thumbUrl = "<?= base_url('uploads/videos/'); ?>"+obj.previewData.thumb;
-                                var prevUrl = "<?= base_url('uploads/videos/'); ?>"+obj.previewData.preview;
-                                var video = "<video poster='"+thumbUrl+"' controls><source src='"+prevUrl+"'   type='video/mp4'>Your browser does not support HTML video.</video>"
+                                var prevUrl = "<?= "https://goibooking.in/uploads/videos/" ?>"+obj.previewData.preview;
+                                var video = "<video autoplay='on' poster='"+thumbUrl+"' controlsList='nodownload' oncontextmenu='return false;' ><source src='"+prevUrl+"'   type='video/mp4'>Your browser does not support HTML video.</video>"
                                 }
                                 else
                                 {
@@ -275,6 +358,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   //alert(value.vid_id);
                                 });
                                 //alert(thumbUrl);
+                                
                             }
                         )
                 });
@@ -282,13 +366,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $("#myBtn").click(function(){
                     $("#newModal").show();
                 });
-                $("#cp1").click(function(){
+                $("#cp1").hover(function(){
                     $("#singl").toggle(200);
                 });
-                $("#cp2").click(function(){
+                $("#cp2").hover(function(){
                     $("#lvl").toggle(200);
                 });
-                $("#cp3").click(function(){
+                $("#cp3").hover(function(){
                     $("#crs").toggle(200);
                 });
                 /*===================================*/
@@ -390,6 +474,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         $(".bullet").html(bltt);
                                         $("#cartOrder").val(orderid);
                                         $("#buyNowBtn").attr("disabled",false);
+                                        alert("you have selected" + crsName);
                                         
                                     }
                                     else

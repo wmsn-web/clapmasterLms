@@ -34,7 +34,7 @@ class Course extends CI_controller
 		{
 			$chapId = $this->input->post("id");
 			$getPreviews = $this->SiteModel->getPreviews($chapId);
-			echo json_encode($getPreviews);
+			echo json_encode($getPreviews); 
 		}
 
 	public function setCart()
@@ -83,10 +83,33 @@ class Course extends CI_controller
 	       //echo $hash;
 		   } else {
 
+		   	$this->db->where(["order_id"=>$productinfo]);
+		   	$gtCart = $this->db->get("cart");
+		   	if($gtCart->num_rows()==0)
+		   	{
+		   		$this->db->where(["order_id"=>$productinfo]);
+		   		$gtTr = $this->db->get("transactions_renew");
+		   		if($gtTr->num_rows()==0)
+		   		{
+
+		   		}
+		   		else
+		   		{
+		   			$rrow = $gtTr->row();
+		   			$this->session->set_userdata("ClientId",$rrow->userid);
+		   			$updtPay = $this->SiteModel->updtTransactionsRenew($productinfo,$txnid,$status); 
+		   		}
+
+		   	}else{
+		   		$rrow = $gtCart->row();
+		   		$this->session->set_userdata("ClientId",$rrow->userid);
+		   		$updtPay = $this->SiteModel->updtTransactions($productinfo,$txnid,$status); 
+		   	}
+
           	//Update Database and redirect
           	//$updtPay = $this->SiteModel->updtMyvideo($productinfo,$txnid,$status);
-          	$updtPay = $this->SiteModel->updtTransactions($productinfo,$txnid,$status);
-          	$this->session->set_flashdata("Feed","Payment Successfull. Now You Can Access Videos");
+          	//$updtPay = $this->SiteModel->updtTransactions($productinfo,$txnid,$status); 
+          	$this->session->set_flashdata("Feed","Payment Successfull. Now You Can Access Videos"); 
             return redirect ("MyCourses");
 		   }
 	}

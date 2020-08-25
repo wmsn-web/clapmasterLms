@@ -19,14 +19,15 @@ class Home extends CI_controller
 	
 	function index()
 	{
-		
-		$this->load->view("admin/AdminHome"); 
+		$dashboardData = $this->AdminModel->dashboardData();
+		$this->load->view("admin/AdminHome",["data"=>$dashboardData]); 
 
 	}
 	function dashboard()
 	{
 		
-		$this->load->view("admin/AdminHome"); 
+		$dashboardData = $this->AdminModel->dashboardData();
+		$this->load->view("admin/AdminHome",["data"=>$dashboardData]); 
 	}
 
 	function logout()

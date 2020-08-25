@@ -43,7 +43,7 @@ class AllCourses extends CI_controller
 		}
 		elseif($setChapter=="exstP")
 		{
-			$this->session->set_flashdata("Feed","Change Chapter Position");
+			$this->session->set_flashdata("Feed","Change Chapter Position"); 
 			return redirect("admin_panel/AllCourses");
 		}else{$this->session->set_flashdata("Feed","Database Error");
 			return redirect("admin_panel/AllCourses");}
